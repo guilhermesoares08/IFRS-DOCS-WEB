@@ -17,7 +17,7 @@ export class FormsComponent implements OnInit {
   }
   
   public getForms(){
-    this.http.get('https://localhost:44325/api/form/getAll').subscribe(
+    this.http.get('https://localhost:44325/api/form/getPendingForms/1').subscribe(
       response => this.forms = response,
       error => console.log(error)
     );

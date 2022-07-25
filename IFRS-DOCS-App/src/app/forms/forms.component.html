@@ -1,4 +1,46 @@
-<div *ngFor="let form of forms">
-    <p><b>Description:</b> {{form.documentType}}</p>
-    <p><b>Status:</b> {{form.status}}</p>
-</div>
+<h2>Formulários</h2>
+<hr>
+
+ <form action="" class="form-inline">
+    <div class="form-group mb2">
+        <input type="text" class="form-control mr-2" placeholder="buscar">
+        <button class="btr btr-outline-success"></button>
+    </div>
+ </form>
+
+ <table class="table table-striped">
+    <thead class="thead-dark">
+        <tr>
+            <th>Data</th>
+            <th>Email</th>
+            <th>Nome</th>
+            <th>CPF</th>
+            <th>Curso</th>
+            <th>Tipo de Documento</th>
+            <th>Documentos</th>
+            <th>Obs</th>
+            <th>Status</th>
+            <th>Atribuído para</th>
+            <th>Data de atualização</th>
+            <th>Justificativa</th>
+            <th>Opções</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let form of forms">
+            <td>{{form.createDate}}</td>
+            <td>{{form.email}}</td>
+            <td>{{form.name}}</td>
+            <td>{{form.cpf}}</td>
+            <td>{{form.course.description}}</td>
+            <td>{{form.documentType}}</td>
+            <td>{{form.optionsString}}</td>
+            <td>Obs a implementar</td>
+            <td>{{form.status}}</td>
+            <td>{{form.user.Description}}</td>
+            <td>{{form.updateDate}}</td>
+            <td>Justificativa a implementar</td>
+            <td></td>
+        </tr>
+    </tbody>
+ </table>
