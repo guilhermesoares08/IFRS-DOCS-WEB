@@ -27,18 +27,18 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let form of forms">
-            <td>{{form.createDate}}</td>
-            <td>{{form.email}}</td>
-            <td>{{form.name}}</td>
-            <td>{{form.cpf}}</td>
-            <td>{{form.course.description}}</td>
-            <td>{{form.documentType}}</td>
-            <td>{{form.optionsString}}</td>
+        <tr *ngFor="let rf of forms">
+            <td>{{rf.form.createDate}}</td>
+            <td>{{rf.form.email}}</td>
+            <td>{{rf.form.name}}</td>
+            <td>{{rf.form.cpf}}</td>
+            <td>{{rf.form.course.description}}</td>
+            <td>{{rf.form.documentType}}</td>
+            <td>{{rf.optionsString}}</td>
             <td>Obs a implementar</td>
-            <td>{{form.status}}</td>
-            <td>{{form.user.Description}}</td>
-            <td>{{form.updateDate}}</td>
+            <td>{{rf.form.status}}</td>
+            <td>{{rf.form.user.description}}</td>
+            <td>{{rf.form.updateDate}}</td>
             <td>Justificativa a implementar</td>
             <td></td>
         </tr>
