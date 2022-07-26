@@ -14,28 +14,26 @@
       </div>
     </div>
   
-    <div>
-      <button class="btn btn-outline-primary">
-        <i class="fa fa-plus-circle"></i>&nbsp; Criar requisição
-      </button>
-    </div>
+    
   </div>
   
+  
   <!-- <h3>Filtro: {{ filtroLista }}</h3> -->
+<div>
   <table class="table table-striped">
     <thead class="thead-dark">
       <tr>       
-        <th>Data</th>
+        <th>Criação</th>
         <th>Email</th>
         <th>Nome</th>
         <th>CPF</th>
         <th>Curso</th>
-        <th>Tipo de Documento</th>
+        <th>Tipo</th>
         <th>Documentos</th>
+        <th>Admin</th>
+        <th>Atualização</th>
         <th>Status</th>
-        <th>Atribuído para</th>
-        <th>Data de atualização</th>
-        <th>Opções</th>
+        <th>Ações</th>
       </tr>
     </thead>
     <tbody *ngIf="forms && forms.length">
@@ -47,25 +45,17 @@
             <td>{{rf.form.course.description}}</td>
             <td>{{rf.form.documentType}}</td>
             <td>{{rf.optionsString}}</td>
-            <td>{{rf.form.status}}</td>
             <td>{{rf.form.user.description}}</td>
             <td>{{rf.form.updateDate | DateTimeFormatPipe }}</td>
             <td>
+              <button [ngClass]="getStatusColor(rf.form.status)" disabled>
+                {{rf.form.status}}
+              </button>
+            </td>
+            <td>
               <div class="btn-group">
-                <button
-                  class="btn btn-sm btn-success"
-                  tooltip="Editar"
-                  
-                >
-                  <i class="fa fa-edit"></i>
-                </button>
-                <button
-                  class="btn btn-sm btn-danger"
-                  tooltip="Excluir"
-                  
-                >
-                  <i class="fa fa-eraser"></i>
-                </button>
+                <button class="btn btn-sm btn-success" tooltip="Editar"><i class="fa fa-edit"></i></button>
+                <button class="btn btn-sm btn-danger" tooltip="Excluir"> <i class="fa fa-eraser"></i></button>
               </div>
             </td>
         </tr>     
@@ -75,10 +65,11 @@
       <tr>
         <td colspan="5" class="text-center"></td>
         <h4>
-          Nenhum restaurante encontrado!
+          Nenhum formulário encontrado!
         </h4>
       </tr>
     </footer>
   </table>
+</div>
     
  

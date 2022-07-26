@@ -18,11 +18,30 @@ export class FormsComponent implements OnInit {
   }
   
   public getForms(){
-    this.http.get('https://localhost:44325/api/form/getPendingForms/1').subscribe(
+    this.http.get('https://localhost:44325/api/form/getByUser/1').subscribe(
       response => this.forms = response,
       error => console.log(error)
     );
     return this.forms;
+  }
+
+  public getStatusColor(status: any){
+    let cl ='btn';
+    switch(status){
+      case 'Cancelada':
+        cl += ' btn-danger';
+        break;
+      case 'Atendida':        
+        cl += ' btn-success';
+        break;
+      case 'Em andamento':
+         cl += ' btn-secondary';
+         break;
+      case 'Pendente':
+        cl += ' btn-primary';
+        break;
+    }
+    return cl += ' btn-sm';
   }
 
 }
