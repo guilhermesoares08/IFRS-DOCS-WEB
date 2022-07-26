@@ -8,7 +8,8 @@ import { HttpClient } from '@angular/common/http';
 })
 export class FormsComponent implements OnInit {
 
-  public forms: any 
+  public forms: any;
+  public title = "Formulários";
 
   constructor(private http: HttpClient) { }
 

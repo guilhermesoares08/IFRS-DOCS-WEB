@@ -1,46 +1,84 @@
-<h2>Formulários</h2>
-<hr>
-
- <form action="" class="form-inline">
-    <div class="form-group mb2">
-        <input type="text" class="form-control mr-2" placeholder="buscar">
-        <button class="btr btr-outline-success"></button>
+<div style="text-align: center;">
+    <app-titulo [titulo]="title"></app-titulo>
+  </div>
+  <hr />
+  <div class="d-flex">
+    <div class="form-inline mr-auto">
+      <div class="form-group mb-2">
+        <label class="mr-2">Filtro:</label
+        ><input
+          type="text"
+          class="form-control-mr-2"
+          placeholder="buscar"
+        />
+      </div>
     </div>
- </form>
-
- <table class="table table-striped">
+  
+    <div>
+      <button class="btn btn-outline-primary">
+        <i class="fa fa-plus-circle"></i>&nbsp; Criar requisição
+      </button>
+    </div>
+  </div>
+  
+  <!-- <h3>Filtro: {{ filtroLista }}</h3> -->
+  <table class="table table-striped">
     <thead class="thead-dark">
-        <tr>
-            <th>Data</th>
-            <th>Email</th>
-            <th>Nome</th>
-            <th>CPF</th>
-            <th>Curso</th>
-            <th>Tipo de Documento</th>
-            <th>Documentos</th>
-            <th>Obs</th>
-            <th>Status</th>
-            <th>Atribuído para</th>
-            <th>Data de atualização</th>
-            <th>Justificativa</th>
-            <th>Opções</th>
-        </tr>
+      <tr>       
+        <th>Data</th>
+        <th>Email</th>
+        <th>Nome</th>
+        <th>CPF</th>
+        <th>Curso</th>
+        <th>Tipo de Documento</th>
+        <th>Documentos</th>
+        <th>Status</th>
+        <th>Atribuído para</th>
+        <th>Data de atualização</th>
+        <th>Opções</th>
+      </tr>
     </thead>
-    <tbody>
+    <tbody *ngIf="forms && forms.length">
         <tr *ngFor="let rf of forms">
-            <td>{{rf.form.createDate}}</td>
+            <td>{{rf.form.createDate | DateTimeFormatPipe }}</td>
             <td>{{rf.form.email}}</td>
             <td>{{rf.form.name}}</td>
             <td>{{rf.form.cpf}}</td>
             <td>{{rf.form.course.description}}</td>
             <td>{{rf.form.documentType}}</td>
             <td>{{rf.optionsString}}</td>
-            <td>Obs a implementar</td>
             <td>{{rf.form.status}}</td>
             <td>{{rf.form.user.description}}</td>
-            <td>{{rf.form.updateDate}}</td>
-            <td>Justificativa a implementar</td>
-            <td></td>
-        </tr>
+            <td>{{rf.form.updateDate | DateTimeFormatPipe }}</td>
+            <td>
+              <div class="btn-group">
+                <button
+                  class="btn btn-sm btn-success"
+                  tooltip="Editar"
+                  
+                >
+                  <i class="fa fa-edit"></i>
+                </button>
+                <button
+                  class="btn btn-sm btn-danger"
+                  tooltip="Excluir"
+                  
+                >
+                  <i class="fa fa-eraser"></i>
+                </button>
+              </div>
+            </td>
+        </tr>     
+      
     </tbody>
- </table>
+    <footer *ngIf="!forms || !forms.length">
+      <tr>
+        <td colspan="5" class="text-center"></td>
+        <h4>
+          Nenhum restaurante encontrado!
+        </h4>
+      </tr>
+    </footer>
+  </table>
+    
+ 
