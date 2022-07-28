@@ -8,13 +8,16 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 import { AppComponent } from './app.component';
-import { RequestFormComponent } from './request-form/request-form.component';
-import { FormsComponent } from './forms/forms.component';
-import { NavComponent } from './nav/nav.component';
+import { RequestFormComponent } from './components/request-form/request-form.component';
+import { FormsComponent } from './components/forms/forms.component';
+import { NavComponent } from './components/nav/nav.component';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { TituloComponent } from './_shared/titulo/titulo.component';
 
 import { DateTimeFormatPipePipe } from './_helpers/FormatPipes/DateFormatPipe.pipe';
+import { UserComponent } from './components/user/user.component';
+import { LoginComponent } from './components/user/login/login.component';
+import { RegistrationComponent } from './components/user/registration/registration.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +26,10 @@ import { DateTimeFormatPipePipe } from './_helpers/FormatPipes/DateFormatPipe.pi
     FormsComponent,
     NavComponent,
     TituloComponent,
-    DateTimeFormatPipePipe
+    DateTimeFormatPipePipe,
+    UserComponent,
+    LoginComponent,
+    RegistrationComponent
   ],
   imports: [
     BrowserModule,

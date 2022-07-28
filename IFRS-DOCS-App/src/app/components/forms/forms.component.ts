@@ -27,17 +27,21 @@ export class FormsComponent implements OnInit {
 
   public getStatusColor(status: any){
     let cl ='btn';
-    switch(status){
-      case 'Cancelada':
+    
+    switch(status.toUpperCase()){
+      case 'CANCELADA':
         cl += ' btn-danger';
         break;
-      case 'Atendida':        
+      case 'ATENDIDA':        
         cl += ' btn-success';
         break;
-      case 'Em andamento':
+      case 'EM ANDAMENTO':
          cl += ' btn-secondary';
          break;
-      case 'Pendente':
+      case 'AGUARDANDO RETIRADA':
+         cl += ' btn-info';
+         break;
+      case 'PENDENTE':
         cl += ' btn-primary';
         break;
     }
