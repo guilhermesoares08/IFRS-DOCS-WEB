@@ -14,7 +14,7 @@ const routes: Routes = [
       { path: 'registration', component: RegistrationComponent },
     ]
   },
-  { path: 'forms', pathMatch: 'full', component: FormsComponent },
+  { path: 'forms', component: FormsComponent },
   { path: 'requestform', component: RequestFormComponent },  
   { path: '',  component: RequestFormComponent },
   { path: '', redirectTo: '', pathMatch: 'full' },

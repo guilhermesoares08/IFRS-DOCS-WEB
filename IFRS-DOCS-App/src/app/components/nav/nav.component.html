@@ -1,7 +1,4 @@
-<nav
-  class="navbar navbar-expand-md navbar-dark bg-light"
-  style="background-color: #0c6d1e !important"
->
+<nav  class="navbar navbar-expand-md navbar-dark bg-light" style="background-color: #0c6d1e !important" *ngIf="showMenu()">
   <div class="container">
     <a class="navbar-brand" routerLink="">IFRS-DOCS</a>
     <button
@@ -19,7 +16,7 @@
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
-          <a class="nav-link" routerLink="forms">Solicitar Documentos </a>
+          <a class="nav-link" routerLink="requestform">Solicitar Documentos </a>
         </li>
         <li class="nav-item" routerLinkActive="active">
           <a class="nav-link" routerLink="forms">Listar Formulários </a>
