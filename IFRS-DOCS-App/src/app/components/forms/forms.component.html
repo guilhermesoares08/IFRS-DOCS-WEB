@@ -10,6 +10,7 @@
           type="text"
           class="form-control-mr-2"
           placeholder="buscar"
+          [(ngModel)]="this.filterList"          
         />
       </div>
     </div>
@@ -18,7 +19,7 @@
   </div>
   
   
-  <!-- <h3>Filtro: {{ filtroLista }}</h3> -->
+  <h3>Filtro: {{ this.filterList }}</h3>
 <div>
   <table class="table table-striped">
     <thead class="thead-dark">
@@ -36,8 +37,8 @@
         <th>Ações</th>
       </tr>
     </thead>
-    <tbody *ngIf="forms && forms.length">
-        <tr *ngFor="let rf of forms">
+    <tbody *ngIf="filteredForms && filteredForms.length">
+        <tr *ngFor="let rf of filteredForms">
             <td>{{rf.form.createDate | DateTimeFormatPipe }}</td>
             <td>{{rf.form.email}}</td>
             <td>{{rf.form.name}}</td>
