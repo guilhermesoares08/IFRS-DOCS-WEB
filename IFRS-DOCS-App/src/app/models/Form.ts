@@ -18,5 +18,6 @@ export interface Form {
     updateBy: string;
     course: Course;
     user: User;
+    optionsString: string;
     formDocumentOptions: FormDocumentOption[];
 }

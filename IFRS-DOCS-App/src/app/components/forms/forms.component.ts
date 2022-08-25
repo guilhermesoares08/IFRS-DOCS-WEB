@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { analyzeAndValidateNgModules } from '@angular/compiler';
+import { FormService } from 'src/app/services/form.service';
+import { Form } from 'src/app/models/Form';
 
 @Component({
   selector: 'app-forms',
@@ -10,27 +12,25 @@ import { analyzeAndValidateNgModules } from '@angular/compiler';
 })
 export class FormsComponent implements OnInit {
 
-  public forms: any = [];
+  public forms: Form[] = [];
   public title = "Formulários";
   private _filterList: string = '';
-  public filteredForms: any = [];
+  public filteredForms: Form[] = [];
 
-  constructor(private http: HttpClient
-    ) { }
+  constructor(private formService: FormService) { }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.getForms();
   }
   
-  public getForms(){
-    this.http.get('https://localhost:44325/api/form/getByUser/1').subscribe(
-      response => {
-        this.forms = response
+  public getForms(): void{
+    this.formService.getFormByUser(1).subscribe(
+      (response: Form[]) => {
+        this.forms = response;
         this.filteredForms = this.forms;
-      },
+      },      
       error => console.log(error)
     );
-    return this.forms;
   }
 
   public getStatusColor(status: any){
@@ -65,7 +65,7 @@ export class FormsComponent implements OnInit {
     this.filteredForms = this.filterList ? this.filterForms(this.filterList) : this.forms;
   }
 
-  filterForms(filterBy: string): any {
+  public filterForms(filterBy: string): Form[] {
     filterBy = filterBy.toLocaleLowerCase();
     return this.forms.filter(
       (dtoResponse: any) => dtoResponse.form.name.toLocaleLowerCase().indexOf(filterBy) !== -1 

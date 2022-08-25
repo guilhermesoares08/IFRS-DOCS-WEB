@@ -19,6 +19,7 @@ import { DateTimeFormatPipePipe } from './_helpers/FormatPipes/DateFormatPipe.pi
 import { UserComponent } from './components/user/user.component';
 import { LoginComponent } from './components/user/login/login.component';
 import { RegistrationComponent } from './components/user/registration/registration.component';
+import { FormService } from './services/form.service';
 
 
 @NgModule({
@@ -41,7 +42,7 @@ import { RegistrationComponent } from './components/user/registration/registrati
     CollapseModule.forRoot(),
     FormsModule
   ],
-  providers: [],
+  providers: [FormService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

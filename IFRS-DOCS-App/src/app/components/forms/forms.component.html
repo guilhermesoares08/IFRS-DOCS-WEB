@@ -5,21 +5,20 @@
   <div class="d-flex">
     <div class="form-inline mr-auto">
       <div class="form-group mb-2">
-        <label class="mr-2">Filtro:</label
-        ><input
+        <label class="mr-2">Filtro:</label>
+        <input
           type="text"
           class="form-control-mr-2"
           placeholder="buscar"
           [(ngModel)]="this.filterList"          
         />
       </div>
-    </div>
-  
+    </div> 
     
   </div>
   
   
-  <h3>Filtro: {{ this.filterList }}</h3>
+  <!-- <h3>Filtro: {{ this.filterList }}</h3> -->
 <div>
   <table class="table table-striped">
     <thead class="thead-dark">
@@ -38,19 +37,19 @@
       </tr>
     </thead>
     <tbody *ngIf="filteredForms && filteredForms.length">
-        <tr *ngFor="let rf of filteredForms">
-            <td>{{rf.form.createDate | DateTimeFormatPipe }}</td>
-            <td>{{rf.form.email}}</td>
-            <td>{{rf.form.name}}</td>
-            <td>{{rf.form.cpf}}</td>
-            <td>{{rf.form.course.description}}</td>
-            <td>{{rf.form.documentType}}</td>
-            <td>{{rf.optionsString}}</td>
-            <td>{{rf.form.user.description}}</td>
-            <td>{{rf.form.updateDate | DateTimeFormatPipe }}</td>
+        <tr *ngFor="let ff of filteredForms">
+            <td>{{ff.createDate | DateTimeFormatPipe }}</td>
+            <td>{{ff.email}}</td>
+            <td>{{ff.name}}</td>
+            <td>{{ff.user.CPF}}</td>
+            <td>{{ff.course.description}}</td>
+            <td>{{ff.documentType}}</td>
+            <td>{{ff.optionsString}}</td>
+            <td>{{ff.user.description}}</td>
+            <td>{{ff.updateDate | DateTimeFormatPipe }}</td>
             <td>
-              <button [ngClass]="getStatusColor(rf.form.status)" disabled>
-                {{rf.form.status}}
+              <button [ngClass]="getStatusColor(ff.status)" disabled>
+                {{ff.status}}
               </button>
             </td>
             <td>
