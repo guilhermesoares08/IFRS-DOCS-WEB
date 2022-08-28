@@ -13,9 +13,11 @@ import { Form } from 'src/app/models/Form';
 export class FormsComponent implements OnInit {
 
   public forms: Form[] = [];
+  public filteredForms: Form[] = [];
+
   public title = "Formulários";
   private _filterList: string = '';
-  public filteredForms: Form[] = [];
+  public Filtrov: number = 2;
 
   constructor(private formService: FormService) { }
 
@@ -68,7 +70,7 @@ export class FormsComponent implements OnInit {
   public filterForms(filterBy: string): Form[] {
     filterBy = filterBy.toLocaleLowerCase();
     return this.forms.filter(
-      (dtoResponse: any) => dtoResponse.form.name.toLocaleLowerCase().indexOf(filterBy) !== -1 
+      (dtoResponse: any) => dtoResponse.name.toLocaleLowerCase().indexOf(filterBy) !== -1 
     );
   }
 }
