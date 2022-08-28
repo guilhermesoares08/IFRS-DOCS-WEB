@@ -53,10 +53,8 @@
               </button>
             </td>
             <td>
-              <div class="btn-group">
-                <button class="btn btn-sm btn-success" tooltip="Editar"><i class="fa fa-edit"></i></button>
-                <button class="btn btn-sm btn-danger" tooltip="Excluir"> <i class="fa fa-eraser"></i></button>
-              </div>
+              <button class="btn btn-primary btn-sm mr-2" tooltip="Editar"><i class="fa fa-edit"></i></button>
+              <button class="btn btn-sm btn-danger" tooltip="Excluir"> <i class="fa fa-eraser" (click)="openModal(template)" ></i></button>
             </td>
         </tr>     
       
@@ -73,3 +71,11 @@
 </div>
     
  
+
+<ng-template #template>
+  <div class="modal-body text-center">
+    <p>Tem certeza que quer deletar este registro?</p>
+    <button type="button" class="btn btn-default" (click)="confirm()" >Sim</button>
+    <button type="button" class="btn btn-primary" (click)="decline()">Não</button>
+  </div>
+</ng-template>

@@ -1,9 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
+import { analyzeAndValidateNgModules } from '@angular/compiler';
 import { HttpClient } from '@angular/common/http';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { analyzeAndValidateNgModules } from '@angular/compiler';
+
 import { FormService } from 'src/app/services/form.service';
 import { Form } from 'src/app/models/Form';
+
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { ToastrService } from 'ngx-toastr';
+import { NgxSpinnerService } from "ngx-spinner";
+
 
 @Component({
   selector: 'app-forms',
@@ -12,6 +18,9 @@ import { Form } from 'src/app/models/Form';
 })
 export class FormsComponent implements OnInit {
 
+  modalRef?: BsModalRef;
+  message?: string;
+
   public forms: Form[] = [];
   public filteredForms: Form[] = [];
 
@@ -19,20 +28,28 @@ export class FormsComponent implements OnInit {
   private _filterList: string = '';
   public Filtrov: number = 2;
 
-  constructor(private formService: FormService) { }
+  constructor(private formService: FormService,
+    private modalService: BsModalService,
+    private toastrService: ToastrService,
+    private spinner: NgxSpinnerService) { }
 
   public ngOnInit(): void {
+    this.spinner.show();
     this.getForms();
   }
   
   public getForms(): void{
-    this.formService.getFormByUser(1).subscribe(
-      (response: Form[]) => {
+    this.formService.getFormByUser(1).subscribe({
+      next:(response: Form[]) => {
         this.forms = response;
         this.filteredForms = this.forms;
-      },      
-      error => console.log(error)
-    );
+      },
+      error: (error: any) =>{
+        this.spinner.hide();
+        this.toastrService.error('Erro ao carregar os formulários', 'Erro');
+      },
+      complete: () => this.spinner.hide() 
+    });
   }
 
   public getStatusColor(status: any){
@@ -72,5 +89,18 @@ export class FormsComponent implements OnInit {
     return this.forms.filter(
       (dtoResponse: any) => dtoResponse.name.toLocaleLowerCase().indexOf(filterBy) !== -1 
     );
+  }
+
+  openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template, {class: 'modal-sm'});
+  }
+ 
+  confirm(): void {
+    this.modalRef?.hide();
+    this.toastrService.success("mensagem corpo", "cabeçalho");
+  }
+ 
+  decline(): void {
+    this.modalRef?.hide();
   }
 }
