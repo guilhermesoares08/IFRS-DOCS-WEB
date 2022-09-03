@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RequestFormComponent implements OnInit {
   
+  public title = "Requisitar Documentos";
+
   constructor() { }
 
   ngOnInit(): void {
