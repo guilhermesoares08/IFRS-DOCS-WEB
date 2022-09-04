@@ -5,6 +5,7 @@ import { Form } from 'src/app/models/Form';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { NgxSpinnerService } from "ngx-spinner";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-form-list',
@@ -24,7 +25,8 @@ export class FormListComponent implements OnInit {
   constructor(private formService: FormService,
     private modalService: BsModalService,
     private toastrService: ToastrService,
-    private spinner: NgxSpinnerService) { }
+    private spinner: NgxSpinnerService,
+    private router: Router) { }
 
   public ngOnInit(): void {
     this.spinner.show();
@@ -95,6 +97,10 @@ export class FormListComponent implements OnInit {
  
   decline(): void {
     this.modalRef?.hide();
+  }
+
+  formDetail(formId: number): void{
+    this.router.navigate([`forms/detail/${formId}`])
   }
 
 }

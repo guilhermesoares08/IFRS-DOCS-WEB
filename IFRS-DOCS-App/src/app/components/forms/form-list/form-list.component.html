@@ -24,7 +24,7 @@
     </div> 
     <!-- <h3>Filtro: {{ this.filterList }}</h3> -->
     
-    <table class="table table-striped">
+    <table class="table table-striped table-hover">
         <thead class="thead-dark">
             <tr>       
                 <!-- <th>Criação</th> -->
@@ -41,19 +41,19 @@
             </tr>
         </thead>
         <tbody *ngIf="filteredForms && filteredForms.length">
-            <tr *ngFor="let ff of filteredForms">
-                <!-- <td>{{ff.createDate | DateTimeFormatPipe }}</td> -->
-                <!-- <td>{{ff.email}}</td> -->
-                <td class="d-none d-md-table-cell">{{ff.name}}</td>
-                <!-- <td>{{ff.user.cpf}}</td> -->
-                <td class="d-none d-md-table-cell">{{ff.course.description}}</td>
-                <td>{{ff.documentType}}</td>
-                <td class="d-none d-md-table-cell">{{ff.optionsString}}</td>
-                <!-- <td>{{ff.user.description}}</td> -->
-                <!-- <td>{{ff.updateDate | DateTimeFormatPipe }}</td> -->
+            <tr *ngFor="let form of filteredForms" (click)="formDetail(form.id)" style="cursor: pointer;">
+                <!-- <td>{{form.createDate | DateTimeFormatPipe }}</td> -->
+                <!-- <td>{{form.email}}</td> -->
+                <td class="d-none d-md-table-cell">{{form.name}}</td>
+                <!-- <td>{{form.user.cpf}}</td> -->
+                <td class="d-none d-md-table-cell">{{form.course.description}}</td>
+                <td>{{form.documentType}}</td>
+                <td class="d-none d-md-table-cell">{{form.optionsString}}</td>
+                <!-- <td>{{form.user.description}}</td> -->
+                <!-- <td>{{form.updateDate | DateTimeFormatPipe }}</td> -->
                 <td>
-                    <button [ngClass]="getStatusColor(ff.status)" disabled>
-                        {{ff.status}}
+                    <button [ngClass]="getStatusColor(form.status)" disabled>
+                        {{form.status}}
                     </button>
                 </td>
                 <td>

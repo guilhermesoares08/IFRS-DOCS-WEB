@@ -16,6 +16,9 @@ const routes: Routes = [
       { path: 'registration', component: RegistrationComponent },
     ]
   },
+  {
+    path: 'forms', redirectTo: 'forms/list'
+  },
   { 
     path: 'forms', component: FormsComponent,
     children:[
