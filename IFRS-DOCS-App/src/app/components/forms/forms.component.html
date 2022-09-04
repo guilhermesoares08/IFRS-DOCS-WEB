@@ -1,24 +1,35 @@
 <div style="text-align: center;">
-    <app-titulo [titulo]="title" 
-    [iconClass]="iconTitle"
-    [listButton]="true"></app-titulo>
-  </div>
-  <hr />
+  <app-titulo [titulo]="title" 
+  [iconClass]="iconTitle"
+  [listButton]="true"> </app-titulo>
+</div>
+
+<div class="card rounded shadow-sm p-3">
+  
   <div class="d-flex">
-    <div class="form-inline mr-auto">
-      <div class="form-group mb-2">
-        <label class="mr-2">Filtro:</label>
+    <div class="flex-fill pr-3">
+      <div class="input-group mb-2">
+        <div class="input-group-prepend">
+          <div class="input-group-text">Filtro:</div>
+        </div>
         <input
-          type="text"
-          class="form-control-mr-2"
-          placeholder="buscar"
-          [(ngModel)]="this.filterList"          
-        />
+        type="text"
+        class="form-control"
+        placeholder="Filtrar por Nome"
+        [(ngModel)]="this.filterList"          
+        >
       </div>
-    </div> 
-  </div>  
+    </div>
+    <div>
+      <a class="d-flex btn btn-outline-primary" href="#">
+        <i class="fa fa-plus-circle my-1"></i>
+        <b class="ml-1 d-none d-sm-block">Novo</b>        
+      </a>
+    </div>
+    
+  </div> 
   <!-- <h3>Filtro: {{ this.filterList }}</h3> -->
-<div>
+  
   <table class="table table-striped">
     <thead class="thead-dark">
       <tr>       
@@ -36,26 +47,26 @@
       </tr>
     </thead>
     <tbody *ngIf="filteredForms && filteredForms.length">
-        <tr *ngFor="let ff of filteredForms">
-            <!-- <td>{{ff.createDate | DateTimeFormatPipe }}</td> -->
-            <!-- <td>{{ff.email}}</td> -->
-            <td>{{ff.name}}</td>
-            <!-- <td>{{ff.user.cpf}}</td> -->
-            <td>{{ff.course.description}}</td>
-            <td>{{ff.documentType}}</td>
-            <td>{{ff.optionsString}}</td>
-            <!-- <td>{{ff.user.description}}</td> -->
-            <!-- <td>{{ff.updateDate | DateTimeFormatPipe }}</td> -->
-            <td>
-              <button [ngClass]="getStatusColor(ff.status)" disabled>
-                {{ff.status}}
-              </button>
-            </td>
-            <td>
-              <button class="btn btn-primary btn-sm mr-2" tooltip="Editar"><i class="fa fa-edit"></i></button>
-              <button class="btn btn-sm btn-danger" tooltip="Excluir"> <i class="fa fa-eraser" (click)="openModal(template)" ></i></button>
-            </td>
-        </tr>     
+      <tr *ngFor="let ff of filteredForms">
+        <!-- <td>{{ff.createDate | DateTimeFormatPipe }}</td> -->
+        <!-- <td>{{ff.email}}</td> -->
+        <td>{{ff.name}}</td>
+        <!-- <td>{{ff.user.cpf}}</td> -->
+        <td>{{ff.course.description}}</td>
+        <td>{{ff.documentType}}</td>
+        <td>{{ff.optionsString}}</td>
+        <!-- <td>{{ff.user.description}}</td> -->
+        <!-- <td>{{ff.updateDate | DateTimeFormatPipe }}</td> -->
+        <td>
+          <button [ngClass]="getStatusColor(ff.status)" disabled>
+            {{ff.status}}
+          </button>
+        </td>
+        <td>
+          <button class="btn btn-primary btn-sm mr-2" tooltip="Editar"><i class="fa fa-edit"></i></button>
+          <button class="btn btn-sm btn-danger" tooltip="Excluir"> <i class="fa fa-eraser" (click)="openModal(template)" ></i></button>
+        </td>
+      </tr>     
       
     </tbody>
     <footer *ngIf="!filteredForms || !filteredForms.length">
@@ -67,9 +78,10 @@
       </tr>
     </footer>
   </table>
-</div>
-    
- 
+  
+</div>  
+
+
 
 <ng-template #template>
   <div class="modal-body text-center">
