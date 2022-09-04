@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { FormDetailComponent } from './components/forms/form-detail/form-detail.component';
+import { FormListComponent } from './components/forms/form-list/form-list.component';
 import { FormsComponent } from './components/forms/forms.component';
 import { RequestFormComponent } from './components/request-form/request-form.component';
 import { LoginComponent } from './components/user/login/login.component';
@@ -14,7 +16,14 @@ const routes: Routes = [
       { path: 'registration', component: RegistrationComponent },
     ]
   },
-  { path: 'forms', component: FormsComponent },
+  { 
+    path: 'forms', component: FormsComponent,
+    children:[
+      { path: 'detail/:id', component: FormDetailComponent },
+      { path: 'detail', component: FormDetailComponent },
+      { path: 'list', component: FormListComponent }
+    ]
+  },
   { path: 'requestform', component: RequestFormComponent },
   { path: '',  component: RequestFormComponent },
   { path: '', redirectTo: 'requestform', pathMatch: 'full' },

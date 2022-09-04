@@ -1,0 +1,86 @@
+
+<div class="card rounded shadow-sm p-3">    
+    <div class="d-flex">
+        <div class="flex-fill pr-3">
+            <div class="input-group mb-2">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">Filtro:</div>
+                </div>
+                <input
+                type="text"
+                class="form-control"
+                placeholder="Filtrar por Nome"
+                [(ngModel)]="this.filterList"          
+                >
+            </div>
+        </div>
+        <div>
+            <a class="d-flex btn btn-outline-primary" routerLink="/forms/detail">
+                <i class="fa fa-plus-circle my-1"></i>
+                <b class="ml-1 d-none d-sm-block">Novo</b>        
+            </a>
+        </div>
+        
+    </div> 
+    <!-- <h3>Filtro: {{ this.filterList }}</h3> -->
+    
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>       
+                <!-- <th>Criação</th> -->
+                <!-- <th>Email</th> -->
+                <th class="d-none d-md-table-cell">Nome</th>
+                <!-- <th>CPF</th> -->
+                <th class="d-none d-md-table-cell">Curso</th>
+                <th>Tipo</th>
+                <th class="d-none d-md-table-cell">Documentos</th>
+                <!-- <th>Admin</th> -->
+                <!-- <th>Atualização</th> -->
+                <th>Status</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody *ngIf="filteredForms && filteredForms.length">
+            <tr *ngFor="let ff of filteredForms">
+                <!-- <td>{{ff.createDate | DateTimeFormatPipe }}</td> -->
+                <!-- <td>{{ff.email}}</td> -->
+                <td class="d-none d-md-table-cell">{{ff.name}}</td>
+                <!-- <td>{{ff.user.cpf}}</td> -->
+                <td class="d-none d-md-table-cell">{{ff.course.description}}</td>
+                <td>{{ff.documentType}}</td>
+                <td class="d-none d-md-table-cell">{{ff.optionsString}}</td>
+                <!-- <td>{{ff.user.description}}</td> -->
+                <!-- <td>{{ff.updateDate | DateTimeFormatPipe }}</td> -->
+                <td>
+                    <button [ngClass]="getStatusColor(ff.status)" disabled>
+                        {{ff.status}}
+                    </button>
+                </td>
+                <td>
+                    <button class="btn btn-primary btn-sm mr-2" tooltip="Editar"><i class="fa fa-edit"></i></button>
+                    <button class="btn btn-sm btn-danger btn-lg" tooltip="Excluir"> <i class="fa fa-eraser" (click)="openModal(template)" ></i></button>
+                </td>
+            </tr>     
+            
+        </tbody>
+        <footer *ngIf="!filteredForms || !filteredForms.length">
+            <tr>
+                <td colspan="5" class="text-center"></td>
+                <h4>
+                    Nenhum formulário encontrado!
+                </h4>
+            </tr>
+        </footer>
+    </table>
+    
+</div>  
+
+
+
+<ng-template #template>
+    <div class="modal-body text-center">
+        <p>Tem certeza que quer deletar este registro?</p>
+        <button type="button" class="btn btn-default" (click)="confirm()" >Sim</button>
+        <button type="button" class="btn btn-primary" (click)="decline()">Não</button>
+    </div>
+</ng-template>

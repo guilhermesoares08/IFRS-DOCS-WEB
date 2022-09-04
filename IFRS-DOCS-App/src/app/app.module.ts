@@ -26,6 +26,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { DateTimeFormatPipePipe } from './_helpers/FormatPipes/DateFormatPipe.pipe';
 
 import { FormService } from './services/form.service';
+import { FormDetailComponent } from './components/forms/form-detail/form-detail.component';
+import { FormListComponent } from './components/forms/form-list/form-list.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,9 @@ import { FormService } from './services/form.service';
     DateTimeFormatPipePipe,
     UserComponent,
     LoginComponent,
-    RegistrationComponent
+    RegistrationComponent,
+    FormDetailComponent,
+    FormListComponent
   ],
   imports: [
     BrowserModule,
