@@ -1,5 +1,7 @@
 <div style="text-align: center;">
-    <app-titulo [titulo]="title"></app-titulo>
+    <app-titulo [titulo]="title" 
+    [iconClass]="iconTitle"
+    [listButton]="true"></app-titulo>
   </div>
   <hr />
   <div class="d-flex">
@@ -14,45 +16,42 @@
         />
       </div>
     </div> 
-    
-  </div>
-  
-  
+  </div>  
   <!-- <h3>Filtro: {{ this.filterList }}</h3> -->
 <div>
   <table class="table table-striped">
     <thead class="thead-dark">
       <tr>       
-        <th>Criação</th>
-        <th>Email</th>
+        <!-- <th>Criação</th> -->
+        <!-- <th>Email</th> -->
         <th>Nome</th>
-        <th>CPF</th>
+        <!-- <th>CPF</th> -->
         <th>Curso</th>
         <th>Tipo</th>
         <th>Documentos</th>
-        <th>Admin</th>
-        <th>Atualização</th>
+        <!-- <th>Admin</th> -->
+        <!-- <th>Atualização</th> -->
         <th>Status</th>
         <th>Ações</th>
       </tr>
     </thead>
     <tbody *ngIf="filteredForms && filteredForms.length">
         <tr *ngFor="let ff of filteredForms">
-            <td>{{ff.createDate | DateTimeFormatPipe }}</td>
-            <td>{{ff.email}}</td>
+            <!-- <td>{{ff.createDate | DateTimeFormatPipe }}</td> -->
+            <!-- <td>{{ff.email}}</td> -->
             <td>{{ff.name}}</td>
-            <td>{{ff.user.cpf}}</td>
+            <!-- <td>{{ff.user.cpf}}</td> -->
             <td>{{ff.course.description}}</td>
             <td>{{ff.documentType}}</td>
             <td>{{ff.optionsString}}</td>
-            <td>{{ff.user.description}}</td>
-            <td>{{ff.updateDate | DateTimeFormatPipe }}</td>
+            <!-- <td>{{ff.user.description}}</td> -->
+            <!-- <td>{{ff.updateDate | DateTimeFormatPipe }}</td> -->
             <td>
               <button [ngClass]="getStatusColor(ff.status)" disabled>
                 {{ff.status}}
               </button>
             </td>
-            <td>
+            <td style="width: 100px;">
               <button class="btn btn-primary btn-sm mr-2" tooltip="Editar"><i class="fa fa-edit"></i></button>
               <button class="btn btn-sm btn-danger" tooltip="Excluir"> <i class="fa fa-eraser" (click)="openModal(template)" ></i></button>
             </td>

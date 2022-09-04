@@ -25,6 +25,7 @@ export class FormsComponent implements OnInit {
   public filteredForms: Form[] = [];
 
   public title = "Formulários";
+  public iconTitle = "fa fa-file"
   private _filterList: string = '';
   public Filtrov: number = 2;
 
