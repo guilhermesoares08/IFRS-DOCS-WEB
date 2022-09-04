@@ -4,7 +4,7 @@ export interface User {
     id: number;
     description: string;
     email: string;
-    CPF: string;
+    cpf: string;
     password: string;
     roleId: number;
     createDate: Date;
