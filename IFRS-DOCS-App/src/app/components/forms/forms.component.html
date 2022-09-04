@@ -35,11 +35,11 @@
       <tr>       
         <!-- <th>Criação</th> -->
         <!-- <th>Email</th> -->
-        <th>Nome</th>
+        <th class="d-none d-md-table-cell">Nome</th>
         <!-- <th>CPF</th> -->
-        <th>Curso</th>
+        <th class="d-none d-md-table-cell">Curso</th>
         <th>Tipo</th>
-        <th>Documentos</th>
+        <th class="d-none d-md-table-cell">Documentos</th>
         <!-- <th>Admin</th> -->
         <!-- <th>Atualização</th> -->
         <th>Status</th>
@@ -50,11 +50,11 @@
       <tr *ngFor="let ff of filteredForms">
         <!-- <td>{{ff.createDate | DateTimeFormatPipe }}</td> -->
         <!-- <td>{{ff.email}}</td> -->
-        <td>{{ff.name}}</td>
+        <td class="d-none d-md-table-cell">{{ff.name}}</td>
         <!-- <td>{{ff.user.cpf}}</td> -->
-        <td>{{ff.course.description}}</td>
+        <td class="d-none d-md-table-cell">{{ff.course.description}}</td>
         <td>{{ff.documentType}}</td>
-        <td>{{ff.optionsString}}</td>
+        <td class="d-none d-md-table-cell">{{ff.optionsString}}</td>
         <!-- <td>{{ff.user.description}}</td> -->
         <!-- <td>{{ff.updateDate | DateTimeFormatPipe }}</td> -->
         <td>
@@ -64,7 +64,7 @@
         </td>
         <td>
           <button class="btn btn-primary btn-sm mr-2" tooltip="Editar"><i class="fa fa-edit"></i></button>
-          <button class="btn btn-sm btn-danger" tooltip="Excluir"> <i class="fa fa-eraser" (click)="openModal(template)" ></i></button>
+          <button class="btn btn-sm btn-danger btn-lg" tooltip="Excluir"> <i class="fa fa-eraser" (click)="openModal(template)" ></i></button>
         </td>
       </tr>     
       
