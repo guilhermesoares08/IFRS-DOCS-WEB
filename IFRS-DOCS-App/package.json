@@ -6,7 +6,9 @@
     "start": "ng serve -o",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "e2e": "ng e2e",
+    "heroku-postbuild": "ng build --prod"
   },
   "private": true,
   "dependencies": {
@@ -23,6 +25,7 @@
     "ajv": "^6.9.1",
     "bootstrap": "^5.2.0",
     "bootswatch": "^4.6.2",
+    "express": "^4.18.1",
     "jquery": "^1.9.1",
     "ngx-bootstrap": "^7.1.0",
     "ngx-spinner": "^12.0.0",
