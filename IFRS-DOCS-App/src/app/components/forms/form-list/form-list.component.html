@@ -10,7 +10,7 @@
                 type="text"
                 class="form-control"
                 placeholder="Filtrar por Nome"
-                [(ngModel)]="this.filterList"          
+                (input)="filterForms($event.target)"
                 >
             </div>
         </div>
@@ -40,8 +40,8 @@
                 <th>Ações</th>
             </tr>
         </thead>
-        <tbody *ngIf="filteredForms && filteredForms.length">
-            <tr *ngFor="let form of filteredForms" (click)="formDetail(form.id)" style="cursor: pointer;">
+        <tbody *ngIf="forms && forms.length">
+            <tr *ngFor="let form of forms" (click)="formDetail(form.id)" style="cursor: pointer;">
                 <!-- <td>{{form.createDate | DateTimeFormatPipe }}</td> -->
                 <!-- <td>{{form.email}}</td> -->
                 <td class="d-none d-md-table-cell">{{form.name}}</td>
@@ -63,7 +63,7 @@
             </tr>     
             
         </tbody>
-        <footer *ngIf="!filteredForms || !filteredForms.length">
+        <footer *ngIf="!forms || !forms.length">
             <tr>
                 <td colspan="5" class="text-center"></td>
                 <h4>
@@ -72,6 +72,25 @@
             </tr>
         </footer>
     </table>
+
+    <div class="d-flex justify-content-center">
+        <pagination 
+        [boundaryLinks]="true"
+
+        [totalItems]="pagination.totalItems"        
+        [itemsPerPage]="pagination.itemsPerPage"
+        [(ngModel)]="pagination.currentPage"
+        (pageChanged)="pageChanged($event)"        
+        
+        pageBtnClass="btn"
+        previousText="&lsaquo;" 
+        nextText="&rsaquo;" 
+        firstText="&laquo;" 
+        lastText="&raquo;">    
+        </pagination>
+    </div>
+
+    
     
 </div>  
 

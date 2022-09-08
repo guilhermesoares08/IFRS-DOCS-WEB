@@ -20,6 +20,7 @@ import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { ToastrModule } from 'ngx-toastr';
 import { NgxSpinnerModule } from 'ngx-spinner';
 
@@ -59,7 +60,8 @@ import { FormListComponent } from './components/forms/form-list/form-list.compon
       preventDuplicates: true,
       progressBar: true
     }),
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    PaginationModule.forRoot()
   ],
   providers: [FormService],
   bootstrap: [AppComponent],
