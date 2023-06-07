@@ -1,6 +1,10 @@
 <nav  class="navbar navbar-expand-md navbar-dark bg-light" style="background-color: #0c6d1e !important" *ngIf="showMenu()">
   <div class="container">
-    <a class="navbar-brand" routerLink="">IFRS-DOCS</a>
+    <div  style="width: 50px; height: 35px;">
+      <img src="../../../../assets/images/logo_ifrs_sem_texto.png" style="max-width:100%;
+      max-height:100%;"
+          alt="" > 
+    </div>
     <button
       class="navbar-toggler"
       type="button"
@@ -15,20 +19,18 @@
 
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
+        <!-- todo: controlar a visibilidade do listar -->
+        <!-- <li class="nav-item">
           <a class="nav-link" routerLink="requestform">Solicitar Documentos </a>
-        </li>
+        </li> -->
         <li class="nav-item" routerLinkActive="active">
           <a class="nav-link" routerLink="forms/list">Listar Formulários </a>
         </li>
-        <!-- <li class="nav-item">
-          <a class="nav-link" routerLink="restaurant">Restaurantes</a>
-        </li> -->
       </ul>
       
     </div>
 
-    <ul class="navbar-nav">
+    <ul *ngIf="loggedIn()" class="navbar-nav">
       <li class="nav-item dropdown" dropdown>
         <a
           dropdownToggle
@@ -39,7 +41,7 @@
           aria-expanded="true"
           style="cursor: pointer; text-transform: capitalize;"
         >
-         Guilherme 
+        {{ userName() }}
         </a>
         <div
           *dropdownMenu
@@ -49,15 +51,16 @@
           <!-- <a class="dropdown-item">
             Perfil
           </a>
-          <div role="separator" class="divider"></div> -->
-          <a class="dropdown-item"  routerLink="user/login">
+          <div role="separator" class="divider"></div> -->         
+          <div role="separator" class="divider"></div>
+          <a class="dropdown-item" (click)="logout()" style="cursor: pointer">
             Sair
           </a>
         </div>
       </li>
     </ul>
 
-    <button  routerLink="user/login"  class="btn btn-light" >
+    <button *ngIf="!loggedIn()" class="btn btn-light" (click)="entrar()">
       Entrar
     </button>
   </div>

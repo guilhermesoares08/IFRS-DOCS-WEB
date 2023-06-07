@@ -11,7 +11,7 @@ import { PaginatedResult } from '../models/Pagination';
 export class FormService {
 
 constructor(private http: HttpClient) { }
-  baseUrl = 'https://localhost:44325/api/form';
+  baseUrl = 'https://ifrs-docs-api.azurewebsites.net/api/form';
   reqHeaders = new HttpHeaders().set('Content-Type','application/json');
 
   getForms(page?: number, itemsPerPage?: number, term?: string): Observable<PaginatedResult<Form[]>> {
