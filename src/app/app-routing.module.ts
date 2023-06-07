@@ -17,7 +17,7 @@ const routes: Routes = [
     ]
   },
   {
-    path: 'forms', redirectTo: 'forms/list'   
+    path: 'forms', redirectTo: 'forms/list'    
   },
   { path: '', redirectTo: 'forms/list', pathMatch: 'prefix' },
   { 
