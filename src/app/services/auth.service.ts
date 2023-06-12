@@ -9,8 +9,8 @@ import { Observable, throwError } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
-  // baseURL = 'https://ifrs-docs-api.azurewebsites.net/api/authentication/';
-  baseURL = "https://localhost:44325/api/authentication/"
+  baseURL = 'https://ifrs-docs-api.azurewebsites.net/api/authentication/';
+  
   jwtHelper = new JwtHelperService();
   decodedToken: any;
 
