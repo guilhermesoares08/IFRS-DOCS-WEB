@@ -23,6 +23,7 @@ export class FormListComponent implements OnInit {
   public forms: Form[] = [];
   public Filtrov: number = 2;
   public pagination = {} as Pagination;
+  isLoading: boolean = false;
   termoBuscaChanged: Subject<string> = new Subject<string>();
   
   constructor(private formService: FormService,
@@ -43,6 +44,7 @@ export class FormListComponent implements OnInit {
 
       public getForms(): void {
         this.spinner.show();
+        this.isLoading = true;
     
         this.formService
           .getForms(this.pagination.currentPage, this.pagination.itemsPerPage)
@@ -50,10 +52,12 @@ export class FormListComponent implements OnInit {
             (paginatedResult: PaginatedResult<Form[]>) => {
               this.forms = paginatedResult.result;
               this.pagination = paginatedResult.pagination;
+              this.isLoading = false;
             },
             (error: any) => {
               this.spinner.hide();
               this.toastr.error('Erro ao Carregar os Forms', 'Erro!');
+              this.isLoading = false;
             }
           )
           .add(() => this.spinner.hide());
@@ -61,7 +65,7 @@ export class FormListComponent implements OnInit {
       
       public getStatusColor(status: any){
         let cl ='btn';
-        
+         
         switch(status.toUpperCase()){
           case 'CANCELADA':
           cl += ' btn-danger';

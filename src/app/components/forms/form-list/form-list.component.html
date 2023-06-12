@@ -41,6 +41,10 @@
             </tr>
         </thead>
         <tbody *ngIf="forms && forms.length">
+            <div *ngIf="isLoading">
+                <mat-progress-spinner></mat-progress-spinner>
+                <p>Carregando...</p>
+              </div>
             <tr *ngFor="let form of forms" (click)="formDetail(form.id)" style="cursor: pointer;">
                 <!-- <td>{{form.createDate | DateTimeFormatPipe }}</td> -->
                 <!-- <td>{{form.email}}</td> -->
