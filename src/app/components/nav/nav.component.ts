@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { ToastrService } from 'ngx-toastr';
+import { Constants } from 'src/app/util/constants';
 
 @Component({
   selector: 'app-nav',
@@ -22,8 +23,8 @@ export class NavComponent implements OnInit {
     return this.router.url != '/user/login';
   }
 
-  loggedIn() {
-    return this.authService.loggedIn();
+  isUserLoggedIn() {
+    return this.authService.isUserLoggedIn();
   }
 
   entrar() {
@@ -31,7 +32,7 @@ export class NavComponent implements OnInit {
   }
 
   logout() {
-    localStorage.removeItem('token');
+    localStorage.removeItem(Constants.LOGIN_TOKEN);
     sessionStorage.removeItem('username');
     this.toastr.show('Log Out');
     this.router.navigate(['/user/login']);

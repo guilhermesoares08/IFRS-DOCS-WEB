@@ -24,6 +24,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { ToastrModule } from 'ngx-toastr';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { DateTimeFormatPipePipe } from './_helpers/FormatPipes/DateFormatPipe.pipe';
 
@@ -62,7 +63,8 @@ import { FormListComponent } from './components/forms/form-list/form-list.compon
       progressBar: true
     }),
     NgxSpinnerModule,
-    PaginationModule.forRoot()
+    PaginationModule.forRoot(),
+    ReactiveFormsModule
   ],
   providers: [FormService],
   bootstrap: [AppComponent],
