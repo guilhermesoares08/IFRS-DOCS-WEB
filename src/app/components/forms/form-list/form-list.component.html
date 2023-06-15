@@ -23,7 +23,6 @@
         
     </div> 
     <!-- <h3>Filtro: {{ this.filterList }}</h3> -->
-    
     <table class="table table-striped table-hover">
         <thead class="thead-dark">
             <tr>       
@@ -40,11 +39,10 @@
                 <th>Ações</th>
             </tr>
         </thead>
-        <tbody *ngIf="forms && forms.length">
-            <div *ngIf="isLoading">
-                <mat-progress-spinner></mat-progress-spinner>
-                <p>Carregando...</p>
-              </div>
+        <div *ngIf="isLoading">
+            <ngx-spinner size="medium" type="ball-spin"></ngx-spinner>
+        </div>
+        <tbody *ngIf="forms && forms.length">            
             <tr *ngFor="let form of forms" (click)="formDetail(form.id)" style="cursor: pointer;">
                 <!-- <td>{{form.createDate | DateTimeFormatPipe }}</td> -->
                 <!-- <td>{{form.email}}</td> -->
@@ -67,7 +65,7 @@
             </tr>     
             
         </tbody>
-        <footer *ngIf="!forms || !forms.length">
+        <footer *ngIf="(!forms || !forms.length) && !isLoading">
             <tr>
                 <td colspan="5" class="text-center"></td>
                 <h4>

@@ -25,6 +25,7 @@ export class FormListComponent implements OnInit {
   public pagination = {} as Pagination;
   isLoading: boolean = false;
   termoBuscaChanged: Subject<string> = new Subject<string>();
+  public loadingText: string = "Carregando";
   
   constructor(private formService: FormService,
     private modalService: BsModalService,
@@ -37,8 +38,7 @@ export class FormListComponent implements OnInit {
         currentPage: 1,
         itemsPerPage: 3,
         totalItems: 1
-      } as Pagination; 
-
+      } as Pagination;       
         this.getForms();
       }      
 
