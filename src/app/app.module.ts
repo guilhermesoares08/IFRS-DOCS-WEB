@@ -1,4 +1,4 @@
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule, enableProdMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
@@ -31,6 +31,11 @@ import { DateTimeFormatPipePipe } from './_helpers/FormatPipes/DateFormatPipe.pi
 import { FormService } from './services/form.service';
 import { FormDetailComponent } from './components/forms/form-detail/form-detail.component';
 import { FormListComponent } from './components/forms/form-list/form-list.component';
+import { environment } from 'src/environments/environment';
+
+if(environment.production){
+  enableProdMode();
+}
 
 @NgModule({
   declarations: [

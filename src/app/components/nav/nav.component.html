@@ -60,7 +60,7 @@
       </li>
     </ul>
 
-    <button *ngIf="!isUserLoggedIn()" class="btn btn-light" (click)="entrar()">
+    <button *ngIf="!isUserLoggedIn()" class="btn btn-light" (click)="router.navigate(['/user/login'])">
       Entrar
     </button>
   </div>

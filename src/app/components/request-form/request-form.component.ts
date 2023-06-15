@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
+import { Course } from 'src/app/models/Course';
+import { ReceiveDocumentType } from 'src/app/models/ReceiveDocumentType';
+import { FormService } from 'src/app/services/form.service';
+import { DocumentType } from 'src/app/models/DocumentType';
 
 @Component({
   selector: 'app-request-form',
@@ -16,10 +21,19 @@ export class RequestFormComponent implements OnInit {
   tipoDocumento: string = "";
   documentos: string = "";
   justificativa: string = "";
+  courses!: Course[];
+  receiveDocumentTypes!: ReceiveDocumentType[];
+  documentTypes!: DocumentType[];
 
-  constructor() { }
+  form!: FormGroup;  
+  constructor(private formService: FormService) { }
 
   ngOnInit(): void {
+    
+    this.validation();
+    this.getAllDocumentTypes();
+    this.getAllReceiveDocumentTypes();
+    this.getAllCourses();
   }
 
   submitForm() {
@@ -35,4 +49,29 @@ export class RequestFormComponent implements OnInit {
     console.log('Justificativa:', this.justificativa);
   }
 
+  public validation (): void{
+    this.form = new FormGroup({
+      courseId: new FormControl()
+    });    
+  }
+
+  public getAllCourses(){
+    this.formService.getAllCourses().subscribe(
+      (_courses: Course[]) => {
+        this.courses = _courses;
+      }
+    );
+  }
+
+  public getAllReceiveDocumentTypes(){
+    this.receiveDocumentTypes = [ 
+      new ReceiveDocumentType(0, 'Documento(s) online por e-mail'),
+      new ReceiveDocumentType(1, 'Documento(s) impresso retirado no Setor de Ensino')];
+  }
+
+  public getAllDocumentTypes(){
+    this.documentTypes = [ 
+      new DocumentType(0, 'Histórico e/ou Ementas'),
+      new DocumentType(1, 'Atestados e/ou Comprovantes')];
+  }
 }

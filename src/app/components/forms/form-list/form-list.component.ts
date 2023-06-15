@@ -55,8 +55,7 @@ export class FormListComponent implements OnInit {
               this.isLoading = false;
             },
             (error: any) => {
-              this.spinner.hide();
-              this.toastr.error('Erro ao Carregar os Forms', 'Erro!');
+              this.toastr.error('Erro ao Carregar os Forms', error.message);
               this.isLoading = false;
             }
           )

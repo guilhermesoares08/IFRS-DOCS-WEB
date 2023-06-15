@@ -27,10 +27,6 @@ export class NavComponent implements OnInit {
     return this.authService.isUserLoggedIn();
   }
 
-  entrar() {
-    this.router.navigate(['/user/login']);
-  }
-
   logout() {
     localStorage.removeItem(Constants.LOGIN_TOKEN);
     sessionStorage.removeItem('username');

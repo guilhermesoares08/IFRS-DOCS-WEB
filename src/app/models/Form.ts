@@ -1,5 +1,6 @@
 import { Course } from "./Course";
 import { FormDocumentOption } from "./FormDocumentOption";
+import { DocumentType } from "./DocumentType";
 import { User } from "./User";
 
 export interface Form {

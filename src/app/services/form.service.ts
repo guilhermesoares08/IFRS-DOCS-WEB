@@ -4,14 +4,16 @@ import { Observable } from 'rxjs';
 import { take, map } from 'rxjs/operators';
 import { Form } from '../models/Form';
 import { PaginatedResult } from '../models/Pagination';
+import { environment } from 'src/environments/environment';
+import { Course } from '../models/Course';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FormService {
-
+  
 constructor(private http: HttpClient) { }
-  baseUrl = 'https://ifrs-docs-api.azurewebsites.net/api/form';
+
   reqHeaders = new HttpHeaders().set('Content-Type','application/json');
 
   getForms(page?: number, itemsPerPage?: number, term?: string): Observable<PaginatedResult<Form[]>> {
@@ -28,7 +30,7 @@ constructor(private http: HttpClient) { }
       params = params.append('term', term)
 
     return this.http
-      .get<Form[]>(`${this.baseUrl}`, {observe: 'response', params })
+      .get<Form[]>(`${environment.apiEndpoint}/form`, {observe: 'response', params })
       .pipe(
         take(1),
         map((response) => {
@@ -38,5 +40,9 @@ constructor(private http: HttpClient) { }
           }
           return paginatedResult;
         }));    
+  }
+
+  getAllCourses(){
+    return this.http.get<Course[]>(`${environment.apiEndpoint}/course/getAll`);
   }
 }

@@ -3,33 +3,37 @@
   </div>
   <hr /> 
 
-  <form class="p-1">
+  <form [formGroup]="form" class="p-1">
     <div class="pb-2 d-block d-md-none">
       <h3 class="border-bottom">Cadastro de Usuário</h3>
     </div>
     <div class="form-row">
       <div class="form-group col-sm-6">
-        <label>Primeiro Nome</label>
-        <input type="text" class="form-control" placeholder="Insira o Primeiro nome" />
+        <label>Curso</label>
+        <select class="form-control" formControlName="courseId">
+          <option  role="menuitem" *ngFor="let c of courses" [ngValue]="c.id">
+            <a class="dropdown-item">{{ c.description }}</a>
+          </option>
+        </select>
       </div>
       <div class="form-group col-sm-6">
-        <label>Último nome</label>
-        <input type="text" class="form-control" placeholder="Insira o Último nome" />
+          <label>Em qual formato você quer receber os documentos?</label>
+          <select class="form-control" formControlName="receiveDocumentTypeId">
+            <option  role="menuitem" *ngFor="let c of receiveDocumentTypes" [ngValue]="c.id">
+              <a class="dropdown-item">{{ c.description }}</a>
+            </option>
+          </select>
       </div>
-    </div>
-    <div class="form-group">
-      <label for="">Email:</label>
-      <input class="form-control" type="text" placeholder="Insira o Nome Completo" />
-    </div>
-    <div class="form-group">
-      <label for="">Usuario:</label>
-      <input class="form-control" type="text" placeholder="Insira o nome de Usuário" />      
     </div>
     <div class="form-row">
       <div class="form-group col-sm-6">
-        <label for="">Senha:</label>
-        <input class="form-control" type="password" placeholder="Digite uma Senha" />
-      </div>
+        <label>Qual tipo de documento você deseja solicitar?</label>
+        <select class="form-control" formControlName="documentTypeId">
+          <option  role="menuitem" *ngFor="let d of documentTypes" [ngValue]="d.id">
+            <a class="dropdown-item">{{ d.description }}</a>
+          </option>
+        </select>
+    </div>
       <div class="form-group col-sm-6">
         <label for="">Confirmar Senha:</label>
         <input class="form-control" type="password" placeholder="Confirme a Senha" />
