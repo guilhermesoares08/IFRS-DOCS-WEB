@@ -1,11 +1,23 @@
 import { FormDocumentOption } from "./FormDocumentOption";
+import { DocumentType } from "./DocumentType";
 
-export interface DocumentOption {
-    id: number;
-    documentType: DocumentType;
-    fieldType: string;
-    description: string;
-    createDate: Date;
-    updateDate: Date;
-    formDocumentOptions: FormDocumentOption[];
+export class DocumentOption {
+
+    constructor(
+        id: number,
+        documentType: DocumentType,
+        fieldType: string,
+        description: string,        
+    ) {
+        this.id = id;
+        this.documentType = documentType;
+        this.fieldType = fieldType;
+        this.description = description;
+    }
+    
+    id!: number;
+    documentType!: DocumentType;
+    fieldType!: string;
+    description!: string;
+    formDocumentOptions!: FormDocumentOption[];
 }

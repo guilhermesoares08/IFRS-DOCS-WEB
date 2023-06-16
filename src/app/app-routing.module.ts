@@ -7,6 +7,7 @@ import { RequestFormComponent } from './components/request-form/request-form.com
 import { LoginComponent } from './components/user/login/login.component';
 import { RegistrationComponent } from './components/user/registration/registration.component';
 import { UserComponent } from './components/user/user.component';
+import { AuthGuard } from './auth/auth.guard';
 
 const routes: Routes = [
   {
@@ -15,20 +16,16 @@ const routes: Routes = [
       { path: 'login', component: LoginComponent },
       { path: 'registration', component: RegistrationComponent },
     ]
-  },
-  {
-    path: 'forms', redirectTo: 'forms/list'    
-  },  
+  },   
   { 
     path: 'forms', component: FormsComponent,
     children:[
       { path: 'detail/:id', component: FormDetailComponent },
       { path: 'detail', component: FormDetailComponent },
-      { path: 'list', component: FormListComponent }
+      { path: 'list', component: FormListComponent, canActivate: [AuthGuard] }
     ]
   },
-  { path: 'requestform', component: RequestFormComponent },
-  { path: '',  component: FormListComponent },
+  { path: 'requestform', component: RequestFormComponent }, 
   { path: '', redirectTo: 'forms/list', pathMatch: 'full' },
   { path: '**',  redirectTo: 'forms/list', pathMatch: 'full' }
   

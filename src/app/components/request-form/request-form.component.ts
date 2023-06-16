@@ -4,6 +4,7 @@ import { Course } from 'src/app/models/Course';
 import { ReceiveDocumentType } from 'src/app/models/ReceiveDocumentType';
 import { FormService } from 'src/app/services/form.service';
 import { DocumentType } from 'src/app/models/DocumentType';
+import { DocumentOption } from 'src/app/models/DocumentOption';
 
 @Component({
   selector: 'app-request-form',
@@ -24,6 +25,7 @@ export class RequestFormComponent implements OnInit {
   courses!: Course[];
   receiveDocumentTypes!: ReceiveDocumentType[];
   documentTypes!: DocumentType[];
+  documentOptions!: DocumentOption[];
 
   form!: FormGroup;  
   constructor(private formService: FormService) { }
@@ -34,6 +36,7 @@ export class RequestFormComponent implements OnInit {
     this.getAllDocumentTypes();
     this.getAllReceiveDocumentTypes();
     this.getAllCourses();
+    this.getAllDocumentOptions();
   }
 
   submitForm() {
@@ -51,7 +54,9 @@ export class RequestFormComponent implements OnInit {
 
   public validation (): void{
     this.form = new FormGroup({
-      courseId: new FormControl()
+      courseId: new FormControl(),
+      receiveDocumentTypeId: new FormControl(),
+      documentTypeId: new FormControl()
     });    
   }
 
@@ -73,5 +78,12 @@ export class RequestFormComponent implements OnInit {
     this.documentTypes = [ 
       new DocumentType(0, 'Histórico e/ou Ementas'),
       new DocumentType(1, 'Atestados e/ou Comprovantes')];
+  }
+
+  public getAllDocumentOptions(){
+    this.documentOptions = [ 
+      new DocumentOption(1, new DocumentType(1, 'Historico'), 'CHECKBOX', 'Historico Parcial'),
+      new DocumentOption(1, new DocumentType(1, 'Historico'), 'CHECKBOX', 'Ementas das Disciplinas cursadas')
+    ];
   }
 }

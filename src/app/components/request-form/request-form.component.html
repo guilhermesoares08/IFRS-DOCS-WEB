@@ -34,10 +34,14 @@
           </option>
         </select>
     </div>
-      <div class="form-group col-sm-6">
-        <label for="">Confirmar Senha:</label>
-        <input class="form-control" type="password" placeholder="Confirme a Senha" />
+      <div class="form-group col-sm-12">
+        <label>Quais documentos deseja?</label>
+        <div class="form-check" *ngFor="let cat of documentOptions">
+          <input type="checkbox" [(ngModel)]="cat.id" class="btn-check" name="{{ cat.description }}" id="{{cat.description}}">
+          <label class="btn btn-outline-primary" style="width: 260px;" for="{{cat.description}}"><b>{{cat.description}}</b></label><br>
+        </div>
       </div>
+      
     </div>
     <div class="form-row">
       <div class="form-group col-12">

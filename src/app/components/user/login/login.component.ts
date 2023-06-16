@@ -21,11 +21,7 @@ export class LoginComponent implements OnInit {
     ,         public router: Router
     ,         private toastr: ToastrService) { }
 
-  ngOnInit() {
-    if (localStorage.getItem(Constants.LOGIN_TOKEN) != null) {
-      this.router.navigate(['']);
-    }
-  } 
+  ngOnInit() { } 
 
   login() {
     let tmpModel = Object.assign({}, this.model);
