@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Course } from 'src/app/models/Course';
 import { ReceiveDocumentType } from 'src/app/models/ReceiveDocumentType';
 import { FormService } from 'src/app/services/form.service';
 import { DocumentType } from 'src/app/models/DocumentType';
 import { DocumentOption } from 'src/app/models/DocumentOption';
+import { AuthService } from 'src/app/services/auth.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-request-form',
@@ -14,6 +16,7 @@ import { DocumentOption } from 'src/app/models/DocumentOption';
 export class RequestFormComponent implements OnInit {
   
   public title = "Requisitar Documentos";
+  isSubmitted = false;
   email = "";
   nomeCompleto: string = "";
   cpf: string = "";
@@ -28,11 +31,16 @@ export class RequestFormComponent implements OnInit {
   documentOptions!: DocumentOption[];
 
   form!: FormGroup;  
-  constructor(private formService: FormService) { }
+  constructor(private formService: FormService,
+              private formBuilder: FormBuilder,
+              private authService: AuthService) { }
 
-  ngOnInit(): void {
-    
-    this.validation();
+  ngOnInit(): void {    
+    this.addFormValidation();
+    //adiciona campos se usuário não está logado
+    if(!this.isUserLoggedIn()){
+      this.form.addControl('email', new FormControl('', [Validators.required, Validators.email]));
+    }
     this.getAllDocumentTypes();
     this.getAllReceiveDocumentTypes();
     this.getAllCourses();
@@ -52,12 +60,13 @@ export class RequestFormComponent implements OnInit {
     console.log('Justificativa:', this.justificativa);
   }
 
-  public validation (): void{
-    this.form = new FormGroup({
-      courseId: new FormControl(),
-      receiveDocumentTypeId: new FormControl(),
-      documentTypeId: new FormControl()
-    });    
+  public addFormValidation (): void{
+    this.form = this.formBuilder.group({
+      courseId: ['',[Validators.required]],
+      receiveDocumentTypeId: ['',[Validators.required]],
+      documentTypeId: ['',[Validators.required]],
+      inputDocumentOptions: ['',[Validators.required]]
+    });
   }
 
   public getAllCourses(){
@@ -85,5 +94,35 @@ export class RequestFormComponent implements OnInit {
       new DocumentOption(1, new DocumentType(1, 'Historico'), 'CHECKBOX', 'Historico Parcial'),
       new DocumentOption(1, new DocumentType(1, 'Historico'), 'CHECKBOX', 'Ementas das Disciplinas cursadas')
     ];
+  }
+
+  onSubmit(): void {
+    console.log(this.form);
+    this.isSubmitted = true;
+    if (!this.form.valid) {
+      false;
+    } else {
+      console.log(JSON.stringify(this.form.value));
+    }
+  }
+
+  get getForm(): any{
+    return this.form.controls;
+  }
+
+  validateEmail(): boolean{    
+    return (!(this.isUserLoggedIn()) && this.getForm.email.errors?.required && this.getForm.email.touched);
+  }
+
+  isUserLoggedIn() {
+    return this.authService.isUserLoggedIn();
+  }
+
+  get isDevelopment(): boolean{
+    return !environment.production
+  }
+
+  resetForm(): void{
+    this.form.reset();
   }
 }

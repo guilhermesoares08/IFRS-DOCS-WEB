@@ -1,60 +1,118 @@
 <div style="text-align: center;">
     <app-titulo [titulo]="title"></app-titulo>
-  </div>
-  <hr /> 
-
-  <form [formGroup]="form" class="p-1">
-    <div class="pb-2 d-block d-md-none">
-      <h3 class="border-bottom">Cadastro de Usuário</h3>
-    </div>
-    <div class="form-row">
-      <div class="form-group col-sm-6">
-        <label>Curso</label>
-        <select class="form-control" formControlName="courseId">
-          <option  role="menuitem" *ngFor="let c of courses" [ngValue]="c.id">
-            <a class="dropdown-item">{{ c.description }}</a>
-          </option>
-        </select>
+</div>
+  <form 
+    [formGroup]="form"
+    (ngSubmit)="onSubmit()"
+    class="p-1"
+  >
+    <div class="p-3">
+      <div *ngIf="isDevelopment">
+        <p>form value: {{form.value | json}}</p>
+        <p>form valid: {{form.status | json}}</p>
       </div>
-      <div class="form-group col-sm-6">
-          <label>Em qual formato você quer receber os documentos?</label>
-          <select class="form-control" formControlName="receiveDocumentTypeId">
-            <option  role="menuitem" *ngFor="let c of receiveDocumentTypes" [ngValue]="c.id">
+      <div *ngIf="!isUserLoggedIn()" class="form-row">
+        <div class="form-group col-sm-6">
+          <label>E-mail</label>
+          <input  type="text" class="form-control"
+            formControlName="email"
+            placeholder="e-mail"
+            [ngClass]="{'is-invalid': getForm.email.errors && getForm.email.touched}"
+          >
+          <div *ngIf="validateEmail()" class="invalid-feedback">
+            e-mail é obrigatório
+          </div>
+          <div *ngIf="!isUserLoggedIn() && getForm.email.errors?.email && getForm.email.touched" class="invalid-feedback">
+            Deve ser um endereço de e-mail válido
+          </div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-sm-6">
+          <label>Curso</label>
+          <select
+            class="form-control" 
+            [ngClass]="{'is-invalid': getForm.courseId.errors && getForm.courseId.touched}" 
+            formControlName="courseId"
+          >
+            <option value=""> Selecione um curso</option>
+            <option  role="menuitem" *ngFor="let c of courses" [ngValue]="c.id">
               <a class="dropdown-item">{{ c.description }}</a>
             </option>
           </select>
+          <div *ngIf="getForm.courseId.errors?.required && getForm.courseId.touched" class="invalid-feedback">
+            Curso é obrigatório
+          </div>
+        </div>
+
+        <div class="form-group col-sm-6">
+            <label>Em qual formato você quer receber os documentos?</label>
+            <select 
+              [ngClass]="{'is-invalid': getForm.receiveDocumentTypeId.errors && getForm.receiveDocumentTypeId.touched}" 
+              class="form-control" 
+              formControlName="receiveDocumentTypeId"
+            >
+              <option value=""> Selecione um formato</option>
+              <option  role="menuitem" *ngFor="let c of receiveDocumentTypes" [ngValue]="c.id">
+                <a class="dropdown-item">{{ c.description }}</a>
+              </option>
+            </select>
+            <div *ngIf="getForm.receiveDocumentTypeId.errors?.required && getForm.receiveDocumentTypeId.touched" class="invalid-feedback">
+              Escolha pelo menos um formato
+            </div>
+        </div>      
       </div>
-    </div>
-    <div class="form-row">
-      <div class="form-group col-sm-6">
-        <label>Qual tipo de documento você deseja solicitar?</label>
-        <select class="form-control" formControlName="documentTypeId">
-          <option  role="menuitem" *ngFor="let d of documentTypes" [ngValue]="d.id">
-            <a class="dropdown-item">{{ d.description }}</a>
-          </option>
-        </select>
-    </div>
-      <div class="form-group col-sm-12">
-        <label>Quais documentos deseja?</label>
-        <div class="form-check" *ngFor="let cat of documentOptions">
-          <input type="checkbox" [(ngModel)]="cat.id" class="btn-check" name="{{ cat.description }}" id="{{cat.description}}">
-          <label class="btn btn-outline-primary" style="width: 260px;" for="{{cat.description}}"><b>{{cat.description}}</b></label><br>
+
+      <div class="form-row">
+        <div class="form-group col-sm-6">
+          <label>Qual tipo de documento você deseja solicitar?</label>
+          <select
+            [ngClass]="{'is-invalid': getForm.documentTypeId.errors && getForm.documentTypeId.touched}" 
+            class="form-control" 
+            formControlName="documentTypeId"
+          >
+          <option value=""> Selecione um tipo</option>
+            <option  role="menuitem" *ngFor="let d of documentTypes" [ngValue]="d.id">
+              <a class="dropdown-item">{{ d.description }}</a>
+            </option>
+          </select>
+          <div *ngIf="getForm.documentTypeId.errors?.required && getForm.documentTypeId.touched " class="invalid-feedback">
+            Escolha pelo menos um tipo
+          </div>
+        </div>
+
+        <div class="form-group col-sm-12">         
+          <label>Quais documentos deseja?</label>           
+          <select
+            [ngClass]="{'is-invalid': getForm.inputDocumentOptions.errors && getForm.inputDocumentOptions.touched}" 
+            class="form-control" 
+            formControlName="inputDocumentOptions"
+          >
+          <option value=""> Selecione um ou mais documentos</option>
+            <option aria-multiselectable="true" role="menuitem" *ngFor="let dopt of documentOptions" [ngValue]="dopt.id">
+              <a class="dropdown-item">{{ dopt.description }}</a>
+            </option>
+          </select>
+          <div *ngIf="getForm.inputDocumentOptions.errors?.required && getForm.inputDocumentOptions.touched " class="invalid-feedback">
+            Escolha pelo menos um tipo
+          </div>          
+        </div>        
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-12">
+          <button type="submit" class="btn btn-lg btn-success btn-block px-5" [disabled]="!form.valid">
+            Solicitar
+          </button>
         </div>
       </div>
-      
-    </div>
-    <div class="form-row">
-      <div class="form-group col-12">
-        <button class="btn btn-lg btn-success btn-block px-5">
-          Solicitar
-        </button>
-      </div>
-    </div>
-    <div class="form-row">
-      <div class="form-group col-12">
-        <button class="btn btn-lg btn-secondary btn-block px-5">
-          Cancelar
-        </button>
+
+      <div class="form-row">
+        <div class="form-group col-12">
+          <button class="btn btn-lg btn-secondary btn-block px-5" (click)="resetForm()">
+            Cancelar
+          </button>
+        </div>
       </div>
     </div>
   </form>
