@@ -27,7 +27,7 @@
         <thead class="thead-dark">
             <tr>       
                 <th>Criação</th>
-                <!-- <th>Email</th> -->
+                <th>Email</th>
                 <th class="d-none d-md-table-cell">Nome</th>
                 <!-- <th>CPF</th> -->
                 <th class="d-none d-md-table-cell">Curso</th>
@@ -42,10 +42,10 @@
         <div *ngIf="isLoading">
             <ngx-spinner size="medium" type="ball-spin"></ngx-spinner>
         </div>
-        <tbody *ngIf="forms && forms.length">            
+        <tbody *ngIf="forms && forms.length">
             <tr *ngFor="let form of forms" (click)="formDetail(form.id)" style="cursor: pointer;">
                 <td>{{form.createDate | DateTimeFormatPipe }}</td>
-                <!-- <td>{{form.email}}</td> -->
+                <td>{{form.email}}</td>
                 <td class="d-none d-md-table-cell">{{form.name}}</td>
                 <!-- <td>{{form.user.cpf}}</td> -->
                 <td class="d-none d-md-table-cell">{{form.course.description}}</td>
