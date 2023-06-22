@@ -12,7 +12,9 @@
 			<!-- <p class="mt-4 mb-2 text-muted">Não tem login? Cadastre-se abaixo</p> -->
 			 <a class="btn btn-lg btn-link btn-block" (click)="router.navigate(['requestform'])">Solicitar sem login</a> 
 		</form>
-
+		<div *ngIf="isLoading">
+            <ngx-spinner size="medium" type="ball-spin"></ngx-spinner>
+        </div>
 	</div>
 	
 </div>
