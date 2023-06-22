@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Course } from 'src/app/models/Course';
 import { ReceiveDocumentType } from 'src/app/models/ReceiveDocumentType';
@@ -7,6 +7,7 @@ import { DocumentType } from 'src/app/models/DocumentType';
 import { DocumentOption } from 'src/app/models/DocumentOption';
 import { AuthService } from 'src/app/services/auth.service';
 import { environment } from 'src/environments/environment';
+import { NgSelectComponent } from '@ng-select/ng-select';
 
 @Component({
   selector: 'app-request-form',
@@ -15,6 +16,8 @@ import { environment } from 'src/environments/environment';
 })
 export class RequestFormComponent implements OnInit {
   
+  @ViewChild(NgSelectComponent) ngSelectComponent!: NgSelectComponent;
+
   public title = "Requisitar Documentos";
   isSubmitted = false;
   email = "";
@@ -29,6 +32,10 @@ export class RequestFormComponent implements OnInit {
   receiveDocumentTypes!: ReceiveDocumentType[];
   documentTypes!: DocumentType[];
   documentOptions!: DocumentOption[];
+  filteredDocumentOptions!: DocumentOption[];
+  filteredDocumentType!: number;
+  realoadOptions: boolean = false;
+  clearMultiSelect: boolean = false;
 
   form!: FormGroup;  
   constructor(private formService: FormService,
@@ -44,7 +51,6 @@ export class RequestFormComponent implements OnInit {
     this.getAllDocumentTypes();
     this.getAllReceiveDocumentTypes();
     this.getAllCourses();
-    this.getAllDocumentOptions();
   }
 
   submitForm() {
@@ -89,11 +95,17 @@ export class RequestFormComponent implements OnInit {
       new DocumentType(1, 'Atestados e/ou Comprovantes')];
   }
 
-  public getAllDocumentOptions(){
-    this.documentOptions = [ 
-      new DocumentOption(1, new DocumentType(1, 'Historico'), 'CHECKBOX', 'Historico Parcial'),
-      new DocumentOption(1, new DocumentType(1, 'Historico'), 'CHECKBOX', 'Ementas das Disciplinas cursadas')
-    ];
+  onDocumentTypeSelect() {
+    this.realoadOptions = true;
+    this.formService.getDocumentOptionByDocumentType(this.getForm.documentTypeId.value).subscribe(
+      (_documentOptions: DocumentOption[]) => {        
+        this.filteredDocumentOptions = [];
+        this.filteredDocumentOptions = _documentOptions;
+        this.clearMultiSelect = true;
+        this.realoadOptions = false;
+        this.ngSelectComponent.handleClearClick();
+      }
+    );
   }
 
   onSubmit(): void {

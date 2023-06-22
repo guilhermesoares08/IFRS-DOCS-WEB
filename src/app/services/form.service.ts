@@ -6,6 +6,7 @@ import { Form } from '../models/Form';
 import { PaginatedResult } from '../models/Pagination';
 import { environment } from 'src/environments/environment';
 import { Course } from '../models/Course';
+import { DocumentOption } from '../models/DocumentOption';
 
 @Injectable({
   providedIn: 'root'
@@ -43,6 +44,10 @@ constructor(private http: HttpClient) { }
   }
 
   getAllCourses(){
-    return this.http.get<Course[]>(`${environment.apiEndpoint}/course/getAll`);
+    return this.http.get<Course[]>(`${environment.apiEndpoint}/course/GetAll`);
+  }
+
+  getDocumentOptionByDocumentType(documentType: number){
+    return this.http.get<DocumentOption[]>(`${environment.apiEndpoint}/DocumentOption/GetByDocumentType/${documentType}`);
   }
 }

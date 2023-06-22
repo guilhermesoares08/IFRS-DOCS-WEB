@@ -25,6 +25,7 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { ToastrModule } from 'ngx-toastr';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { ReactiveFormsModule } from '@angular/forms';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 import { DateTimeFormatPipePipe } from './_helpers/FormatPipes/DateFormatPipe.pipe';
 
@@ -69,7 +70,8 @@ if(environment.production){
     }),
     NgxSpinnerModule,
     PaginationModule.forRoot(),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgSelectModule
   ],
   providers: [FormService],
   bootstrap: [AppComponent],

@@ -71,6 +71,7 @@
             [ngClass]="{'is-invalid': getForm.documentTypeId.errors && getForm.documentTypeId.touched}" 
             class="form-control" 
             formControlName="documentTypeId"
+            (change)="onDocumentTypeSelect()"
           >
           <option value=""> Selecione um tipo</option>
             <option  role="menuitem" *ngFor="let d of documentTypes" [ngValue]="d.id">
@@ -82,24 +83,26 @@
           </div>
         </div>
 
-        <div class="form-group col-sm-12">         
-          <label>Quais documentos deseja?</label>           
-          <select
-            [ngClass]="{'is-invalid': getForm.inputDocumentOptions.errors && getForm.inputDocumentOptions.touched}" 
-            class="form-control" 
+        <div class="form-group col-sm-6" dropdown #dropdown="bs-dropdown">         
+          <label>Quais documentos deseja?</label>          
+          <ng-select [items]="filteredDocumentOptions" 
+            bindLabel="description" 
+            bindValue="id" 
+            [multiple]="true"
             formControlName="inputDocumentOptions"
-          >
-          <option value=""> Selecione um ou mais documentos</option>
-            <option aria-multiselectable="true" role="menuitem" *ngFor="let dopt of documentOptions" [ngValue]="dopt.id">
-              <a class="dropdown-item">{{ dopt.description }}</a>
-            </option>
-          </select>
+            placeholder="Selecione um ou mais documentos"
+            [loading]="realoadOptions"
+            (clear)="clearMultiSelect">
+          </ng-select>
           <div *ngIf="getForm.inputDocumentOptions.errors?.required && getForm.inputDocumentOptions.touched " class="invalid-feedback">
             Escolha pelo menos um tipo
           </div>          
         </div>        
       </div>
+      
+     
 
+    
       <div class="form-row">
         <div class="form-group col-12">
           <button type="submit" class="btn btn-lg btn-success btn-block px-5" [disabled]="!form.valid">
