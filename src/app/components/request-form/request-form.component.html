@@ -83,7 +83,7 @@
           </div>
         </div>
 
-        <div class="form-group col-sm-6" dropdown #dropdown="bs-dropdown">         
+        <div class="form-group col-sm-6">         
           <label>Quais documentos deseja?</label>          
           <ng-select [items]="filteredDocumentOptions" 
             bindLabel="description" 
@@ -92,10 +92,12 @@
             formControlName="inputDocumentOptions"
             placeholder="Selecione um ou mais documentos"
             [loading]="realoadOptions"
-            (clear)="clearMultiSelect">
+            (clear)="clearMultiSelect"
+            [ngClass]="{'is-invalid': !getForm.documentTypeId.errors && getForm.inputDocumentOptions.errors && getForm.inputDocumentOptions.touched}"
+            required>
           </ng-select>
           <div *ngIf="getForm.inputDocumentOptions.errors?.required && getForm.inputDocumentOptions.touched " class="invalid-feedback">
-            Escolha pelo menos um tipo
+            Escolha pelo menos um documento
           </div>          
         </div>        
       </div>
