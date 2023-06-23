@@ -20,5 +20,6 @@ export interface Form {
     course: Course;
     user: User;
     optionsString: string;
+    note: string;
     formDocumentOptions: FormDocumentOption[];
 }

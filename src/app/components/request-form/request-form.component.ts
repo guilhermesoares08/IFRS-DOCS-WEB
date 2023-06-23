@@ -8,6 +8,7 @@ import { DocumentOption } from 'src/app/models/DocumentOption';
 import { AuthService } from 'src/app/services/auth.service';
 import { environment } from 'src/environments/environment';
 import { NgSelectComponent } from '@ng-select/ng-select';
+import { Form } from 'src/app/models/Form';
 
 @Component({
   selector: 'app-request-form',
@@ -36,6 +37,7 @@ export class RequestFormComponent implements OnInit {
   filteredDocumentType!: number;
   realoadOptions: boolean = false;
   clearMultiSelect: boolean = false;
+  requestForm!: Form;
 
   form!: FormGroup;  
   constructor(private formService: FormService,
@@ -136,5 +138,10 @@ export class RequestFormComponent implements OnInit {
 
   resetForm(): void{
     this.form.reset();
+  }
+
+  saveForm(form: any){
+    let objToSave = Object.assign({}, this.form);
+    
   }
 }
