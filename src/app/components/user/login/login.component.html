@@ -9,8 +9,7 @@
 			<label for="password" class="sr-only">Password</label>
 			<input type="password" id="0password" class="form-control" placeholder="Senha" name="password" required [(ngModel)]="model.password">
 			<button [disabled]="!loginForm.valid" class="btn btn-lg btn-primary btn-block" type="submit">Entrar</button>
-			<!-- <p class="mt-4 mb-2 text-muted">Não tem login? Cadastre-se abaixo</p> -->
-			 <a class="btn btn-lg btn-link btn-block" (click)="router.navigate(['requestform'])">Solicitar sem login</a> 
+			<!-- <p class="mt-4 mb-2 text-muted">Não tem login? Cadastre-se abaixo</p> -->			 
 		</form>
 		<div *ngIf="isLoading">
             <ngx-spinner size="medium" type="ball-spin"></ngx-spinner>

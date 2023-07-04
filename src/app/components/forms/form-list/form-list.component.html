@@ -29,7 +29,7 @@
                 <th>Criação</th>
                 <th>Email</th>
                 <th class="d-none d-md-table-cell">Nome</th>
-                <!-- <th>CPF</th> -->
+                <th>Formato Retirada</th>
                 <th class="d-none d-md-table-cell">Curso</th>
                 <th>Tipo</th>
                 <th class="d-none d-md-table-cell">Documentos</th>
@@ -48,7 +48,7 @@
                 <td>{{form.createDate | DateTimeFormatPipe }}</td>
                 <td>{{form.email}}</td>
                 <td class="d-none d-md-table-cell">{{form.name}}</td>
-                <!-- <td>{{form.user.cpf}}</td> -->
+                <td>{{form.receiveDocumentType}}</td>
                 <td class="d-none d-md-table-cell">{{form.course.description}}</td>
                 <td>{{form.documentType}}</td>
                 <td style="max-width: 200px;" class="d-none d-md-table-cell">{{form.optionsString}}</td>

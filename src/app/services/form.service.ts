@@ -50,4 +50,8 @@ constructor(private http: HttpClient) { }
   getDocumentOptionByDocumentType(documentType: number){
     return this.http.get<DocumentOption[]>(`${environment.apiEndpoint}/DocumentOption/GetByDocumentType/${documentType}`);
   }
+
+  postForm(form: Form) {
+    return this.http.post(`${environment.apiEndpoint}`, form);
+  }
 }

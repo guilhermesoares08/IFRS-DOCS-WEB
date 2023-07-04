@@ -4,6 +4,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { catchError, map } from 'rxjs/operators';
 import { Constants } from '../util/constants';
 import { Observable, throwError } from 'rxjs';
+import { UserLogin } from '../models/UserLogin';
 
 @Injectable({
   providedIn: 'root'
@@ -41,6 +42,27 @@ export class AuthService {
       return !this.jwtHelper.isTokenExpired(token);
     }
     return false;    
+  }
+
+  getParsedToken(): any{
+    return this.jwtHelper.decodeToken(localStorage.getItem(Constants.LOGIN_TOKEN) || '{}');
+  }
+
+  getUserInfo(): UserLogin | null{    
+    var parsedToken = this.getParsedToken();
+    if(parsedToken != null){
+      return new UserLogin({
+        userName: parsedToken.unique_name,
+        role: parsedToken.role,
+        id: parsedToken.nameid
+      });
+    }
+    return null;
+  }
+
+  isUserAdmin(): boolean{
+    var currentUser = this.getUserInfo();
+    return currentUser != null && currentUser.role == 'Admin';
   }
 
 }

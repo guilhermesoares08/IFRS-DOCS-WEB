@@ -9,6 +9,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { environment } from 'src/environments/environment';
 import { NgSelectComponent } from '@ng-select/ng-select';
 import { Form } from 'src/app/models/Form';
+import { UserLogin } from 'src/app/models/UserLogin';
 
 @Component({
   selector: 'app-request-form',
@@ -48,7 +49,7 @@ export class RequestFormComponent implements OnInit {
     this.addFormValidation();
     //adiciona campos se usuário não está logado
     if(!this.isUserLoggedIn()){
-      this.form.addControl('email', new FormControl('', [Validators.required, Validators.email]));
+      //this.form.addControl('email', new FormControl('', [Validators.required, Validators.email]));
     }
     this.getAllDocumentTypes();
     this.getAllReceiveDocumentTypes();
@@ -73,7 +74,9 @@ export class RequestFormComponent implements OnInit {
       courseId: ['',[Validators.required]],
       receiveDocumentTypeId: ['',[Validators.required]],
       documentTypeId: ['',[Validators.required]],
-      inputDocumentOptions: ['',[Validators.required]]
+      inputDocumentOptions: ['',[Validators.required]],
+      userId: [this.getUserInfo()?.id, [Validators.required]],
+      status: ['Pendente']
     });
   }
 
@@ -144,4 +147,8 @@ export class RequestFormComponent implements OnInit {
     let objToSave = Object.assign({}, this.form);
     
   }
+
+  getUserInfo(): UserLogin | null{
+    return this.authService.getUserInfo();
+  }  
 }
