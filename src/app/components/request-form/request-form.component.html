@@ -113,12 +113,12 @@
             formControlName="note"
             placeholder=""
             [ngClass]="{'is-invalid': getFormControls.note.errors && getFormControls.note.touched}"
-          ></textarea>
-          <div *ngIf="getFormControls.note.errors.maxlength && getFormControls.note.touched" class="invalid-feedback">
-            Justificativa deve ter no máximo 300 caracteres!
-          </div>
+          ></textarea>          
           <div *ngIf="validateNote()" class="invalid-feedback">
             A justificativa é obrigatória
+          </div>
+          <div *ngIf="this.getFormControls.note.errors?.maxlength && getFormControls.note.touched" class="invalid-feedback">
+            Justificativa deve ter no máximo 300 caracteres!
           </div>
         </div>
       </div>

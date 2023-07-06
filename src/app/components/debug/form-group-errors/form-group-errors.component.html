@@ -6,6 +6,7 @@
       <th>Controle</th>
       <th>Touched</th>
       <th>Errors</th>
+      <th>Value</th>
     </tr>
   </thead>
   <tbody>
@@ -15,8 +16,14 @@
       <td>
         <ul>
           <li *ngFor="let error of controle.value.errors | keyvalue">
-            {{ error.key }}: {{ error.value }}
-            
+            {{ error.key }}: {{ error.value }}            
+          </li>
+        </ul>
+      </td>
+      <td>
+        <ul>
+          <li>
+            {{ controle.value.value }}
           </li>
         </ul>
       </td>
