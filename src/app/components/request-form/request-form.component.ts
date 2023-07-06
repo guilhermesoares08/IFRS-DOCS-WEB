@@ -10,6 +10,11 @@ import { environment } from 'src/environments/environment';
 import { NgSelectComponent } from '@ng-select/ng-select';
 import { Form } from 'src/app/models/Form';
 import { UserLogin } from 'src/app/models/UserLogin';
+import { RequestNewForm } from 'src/app/models/RequestNewForm';
+import { ToastrService } from 'ngx-toastr';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { Router } from '@angular/router';
+import { FormDocumentOption } from 'src/app/models/FormDocumentOption';
 
 @Component({
   selector: 'app-request-form',
@@ -38,12 +43,15 @@ export class RequestFormComponent implements OnInit {
   filteredDocumentType!: number;
   realoadOptions: boolean = false;
   clearMultiSelect: boolean = false;
-  requestForm!: Form;
+  newForm!: RequestNewForm;
 
   form!: FormGroup;  
   constructor(private formService: FormService,
               private formBuilder: FormBuilder,
-              private authService: AuthService) { }
+              private authService: AuthService,
+              private toastr: ToastrService,
+              private spinner: NgxSpinnerService,
+              private router: Router) { }
 
   ngOnInit(): void {    
     this.addFormValidation();
@@ -74,9 +82,10 @@ export class RequestFormComponent implements OnInit {
       courseId: ['',[Validators.required]],
       receiveDocumentTypeId: ['',[Validators.required]],
       documentTypeId: ['',[Validators.required]],
-      inputDocumentOptions: ['',[Validators.required]],
-      userId: [this.getUserInfo()?.id, [Validators.required]],
-      status: ['Pendente']
+      status: ['Pendente'],
+      note: ['',[Validators.required]],
+      formDocumentOptions: ['',[Validators.required]],
+      userId: [this.getUserInfo()?.id, [Validators.required]]    
     });
   }
 
@@ -102,7 +111,7 @@ export class RequestFormComponent implements OnInit {
 
   onDocumentTypeSelect() {
     this.realoadOptions = true;
-    this.formService.getDocumentOptionByDocumentType(this.getForm.documentTypeId.value).subscribe(
+    this.formService.getDocumentOptionByDocumentType(this.getFormControls.documentTypeId.value).subscribe(
       (_documentOptions: DocumentOption[]) => {        
         this.filteredDocumentOptions = [];
         this.filteredDocumentOptions = _documentOptions;
@@ -123,12 +132,16 @@ export class RequestFormComponent implements OnInit {
     }
   }
 
-  get getForm(): any{
+  get getFormControls(): any{
     return this.form.controls;
   }
 
   validateEmail(): boolean{    
-    return (!(this.isUserLoggedIn()) && this.getForm.email.errors?.required && this.getForm.email.touched);
+    return (!(this.isUserLoggedIn()) && this.getFormControls.email.errors?.required && this.getFormControls.email.touched);
+  }
+
+  validateNote(): boolean{    
+    return (this.getFormControls.note.errors?.required && this.getFormControls.note.touched);
   }
 
   isUserLoggedIn() {
@@ -144,11 +157,32 @@ export class RequestFormComponent implements OnInit {
   }
 
   saveForm(form: any){
-    let objToSave = Object.assign({}, this.form);
-    
+    this.newForm = Object.assign({}, this.form.value);
+    this.newForm.formDocumentOptions = this.castArrayToFormDocumentOptions(this.getFormControls.formDocumentOptions.value);
+
+    console.log(this.newForm);
+    this.formService.postForm(this.newForm).subscribe(
+      (responseForm: any) => {
+        
+        this.toastr.success(`Inserido com Sucesso! Id: ${responseForm.id}`);
+      }, (error) => {
+        this.toastr.error(`Erro ao Inserir: ${error}`);
+      }
+    );
   }
 
   getUserInfo(): UserLogin | null{
     return this.authService.getUserInfo();
+  }
+
+  castArrayToFormDocumentOptions(arrayDeNumeros: number[]): FormDocumentOption[] {
+    const arrayDeFormDocumentOptions: FormDocumentOption[] = arrayDeNumeros.map(idOpcao => {
+      const formDocumentOption = new FormDocumentOption();
+      formDocumentOption.documentOptionId = idOpcao;
+      
+      return formDocumentOption;
+    });
+  
+    return arrayDeFormDocumentOptions;
   }  
 }

@@ -18,12 +18,12 @@
           <input  type="text" class="form-control"
             formControlName="email"
             placeholder="e-mail"
-            [ngClass]="{'is-invalid': getForm.email.errors && getForm.email.touched}"
+            [ngClass]="{'is-invalid': getFormControls.email.errors && getFormControls.email.touched}"
           >
           <div *ngIf="validateEmail()" class="invalid-feedback">
             e-mail é obrigatório
           </div>
-          <div *ngIf="!isUserLoggedIn() && getForm.email.errors?.email && getForm.email.touched" class="invalid-feedback">
+          <div *ngIf="!isUserLoggedIn() && getFormControls.email.errors?.email && getFormControls.email.touched" class="invalid-feedback">
             Deve ser um endereço de e-mail válido
           </div>
         </div>
@@ -33,7 +33,7 @@
           <label>Curso</label>
           <select
             class="form-control" 
-            [ngClass]="{'is-invalid': getForm.courseId.errors && getForm.courseId.touched}" 
+            [ngClass]="{'is-invalid': getFormControls.courseId.errors && getFormControls.courseId.touched}" 
             formControlName="courseId"
           >
             <option value=""> Selecione um curso</option>
@@ -41,7 +41,7 @@
               <a class="dropdown-item">{{ c.description }}</a>
             </option>
           </select>
-          <div *ngIf="getForm.courseId.errors?.required && getForm.courseId.touched" class="invalid-feedback">
+          <div *ngIf="getFormControls.courseId.errors?.required && getFormControls.courseId.touched" class="invalid-feedback">
             Curso é obrigatório
           </div>
         </div>
@@ -49,7 +49,7 @@
         <div class="form-group col-sm-6">
             <label>Em qual formato você quer receber os documentos?</label>
             <select 
-              [ngClass]="{'is-invalid': getForm.receiveDocumentTypeId.errors && getForm.receiveDocumentTypeId.touched}" 
+              [ngClass]="{'is-invalid': getFormControls.receiveDocumentTypeId.errors && getFormControls.receiveDocumentTypeId.touched}" 
               class="form-control" 
               formControlName="receiveDocumentTypeId"
             >
@@ -58,7 +58,7 @@
                 <a class="dropdown-item">{{ c.description }}</a>
               </option>
             </select>
-            <div *ngIf="getForm.receiveDocumentTypeId.errors?.required && getForm.receiveDocumentTypeId.touched" class="invalid-feedback">
+            <div *ngIf="getFormControls.receiveDocumentTypeId.errors?.required && getFormControls.receiveDocumentTypeId.touched" class="invalid-feedback">
               Escolha pelo menos um formato
             </div>
         </div>      
@@ -68,7 +68,7 @@
         <div class="form-group col-sm-6">
           <label>Qual tipo de documento você deseja solicitar?</label>
           <select
-            [ngClass]="{'is-invalid': getForm.documentTypeId.errors && getForm.documentTypeId.touched}" 
+            [ngClass]="{'is-invalid': getFormControls.documentTypeId.errors && getFormControls.documentTypeId.touched}" 
             class="form-control" 
             formControlName="documentTypeId"
             (change)="onDocumentTypeSelect()"
@@ -78,7 +78,7 @@
               <a class="dropdown-item">{{ d.description }}</a>
             </option>
           </select>
-          <div *ngIf="getForm.documentTypeId.errors?.required && getForm.documentTypeId.touched " class="invalid-feedback">
+          <div *ngIf="getFormControls.documentTypeId.errors?.required && getFormControls.documentTypeId.touched " class="invalid-feedback">
             Escolha pelo menos um tipo
           </div>
         </div>
@@ -89,26 +89,37 @@
             bindLabel="description" 
             bindValue="id" 
             [multiple]="true"
-            formControlName="inputDocumentOptions"
+            formControlName="formDocumentOptions"
             placeholder="Selecione um ou mais documentos"
             [loading]="realoadOptions"
             (clear)="clearMultiSelect"
             [closeOnSelect]="false"
-            [ngClass]="{'is-invalid': !getForm.documentTypeId.errors && getForm.inputDocumentOptions.errors && getForm.inputDocumentOptions.touched}"
+            [ngClass]="{'is-invalid': !getFormControls.documentTypeId.errors && getFormControls.formDocumentOptions.errors && getFormControls.formDocumentOptions.touched}"
             required>
           </ng-select>
-          <div *ngIf="getForm.inputDocumentOptions.errors?.required && getForm.inputDocumentOptions.touched " class="invalid-feedback">
+          <div *ngIf="getFormControls.formDocumentOptions.errors?.required && getFormControls.formDocumentOptions.touched " class="invalid-feedback">
             Escolha pelo menos um documento
           </div>          
         </div>        
       </div>
-      
-     
 
-    
+      <div class="form-row">
+        <div class="form-group col-sm-6">
+          <label>Justificativa</label>
+          <input  type="text" class="form-control"
+            formControlName="note"
+            placeholder=""
+            [ngClass]="{'is-invalid': getFormControls.note.errors && getFormControls.note.touched}"
+          >
+          <div *ngIf="validateNote()" class="invalid-feedback">
+            A justificativa é obrigatória
+          </div>
+        </div>
+      </div>
+      
       <div class="form-row">
         <div class="form-group col-12">
-          <button type="submit" class="btn btn-lg btn-success btn-block px-5" [disabled]="!form.valid">
+          <button type="submit" class="btn btn-lg btn-success btn-block px-5" (click)="saveForm(this.newForm)" [disabled]="!form.valid">
             Solicitar
           </button>
         </div>

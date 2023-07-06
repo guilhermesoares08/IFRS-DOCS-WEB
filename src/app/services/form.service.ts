@@ -7,6 +7,7 @@ import { PaginatedResult } from '../models/Pagination';
 import { environment } from 'src/environments/environment';
 import { Course } from '../models/Course';
 import { DocumentOption } from '../models/DocumentOption';
+import { RequestNewForm } from '../models/RequestNewForm';
 
 @Injectable({
   providedIn: 'root'
@@ -51,7 +52,7 @@ constructor(private http: HttpClient) { }
     return this.http.get<DocumentOption[]>(`${environment.apiEndpoint}/DocumentOption/GetByDocumentType/${documentType}`);
   }
 
-  postForm(form: Form) {
-    return this.http.post(`${environment.apiEndpoint}`, form);
+  postForm(form: RequestNewForm) {
+    return this.http.post(`${environment.apiEndpoint}/Form`, form);
   }
 }
