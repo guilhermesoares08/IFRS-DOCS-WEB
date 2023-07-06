@@ -9,9 +9,9 @@
   >
     <div class="p-3" class="container">
       <div *ngIf="isDevelopment">
-        <p>form value: {{form.value | json}}</p>
-        <p>form valid: {{form.status | json}}</p>
+        <app-form-group-errors [formGroup]="form"></app-form-group-errors>  
       </div>
+      
       <div *ngIf="!isUserLoggedIn()" class="form-row">
         <div class="form-group col-sm-6">
           <label>E-mail</label>
@@ -94,12 +94,15 @@
             [loading]="realoadOptions"
             (clear)="clearMultiSelect"
             [closeOnSelect]="false"
-            [ngClass]="{'is-invalid': !getFormControls.documentTypeId.errors && getFormControls.formDocumentOptions.errors && getFormControls.formDocumentOptions.touched}"
+            [ngClass]="{'is-invalid': getFormControls.formDocumentOptions.errors?.required && getFormControls.formDocumentOptions.errors && getFormControls.formDocumentOptions.touched}"
             required>
           </ng-select>
-          <div *ngIf="getFormControls.formDocumentOptions.errors?.required && getFormControls.formDocumentOptions.touched " class="invalid-feedback">
+          <div *ngIf=" getFormControls.documentTypeId.errors?.required " class="invalid-feedback">
+            Selecione um tipo de documento antes
+          </div>
+          <div *ngIf="!getFormControls.documentTypeId.errors && getFormControls.formDocumentOptions.errors && getFormControls.formDocumentOptions.errors?.required && getFormControls.formDocumentOptions.touched " class="invalid-feedback">
             Escolha pelo menos um documento
-          </div>          
+          </div>
         </div>        
       </div>
 

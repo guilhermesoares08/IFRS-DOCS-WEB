@@ -1,0 +1,25 @@
+<p>form value: {{formGroup.value | json}}</p>        
+<p>form valid: {{formGroup.status | json}}</p>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Controle</th>
+      <th>Touched</th>
+      <th>Errors</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let controle of formGroup.controls | keyvalue">
+      <td>{{ controle.key }}</td>
+      <td [ngClass]="{ 'touched-true': controle.value.touched }">{{ controle.value.touched }}</td>
+      <td>
+        <ul>
+          <li *ngFor="let error of controle.value.errors | keyvalue">
+            {{ error.key }}: {{ error.value }}
+            
+          </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>

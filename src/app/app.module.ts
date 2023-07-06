@@ -14,6 +14,7 @@ import { NavComponent } from './components/nav/nav.component';
 import { UserComponent } from './components/user/user.component';
 import { LoginComponent } from './components/user/login/login.component';
 import { RegistrationComponent } from './components/user/registration/registration.component';
+import { FormGroupErrorsComponent } from './components/debug/form-group-errors/form-group-errors.component';
 
 import { TituloComponent } from './_shared/titulo/titulo.component';
 
@@ -50,7 +51,8 @@ if(environment.production){
     LoginComponent,
     RegistrationComponent,
     FormDetailComponent,
-    FormListComponent
+    FormListComponent,
+    FormGroupErrorsComponent
   ],
   imports: [
     BrowserModule,
