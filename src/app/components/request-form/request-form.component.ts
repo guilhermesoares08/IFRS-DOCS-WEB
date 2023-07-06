@@ -83,7 +83,7 @@ export class RequestFormComponent implements OnInit {
       receiveDocumentTypeId: ['',[Validators.required]],
       documentTypeId: ['',[Validators.required]],
       status: ['Pendente'],
-      note: ['',[Validators.required]],
+      note: ['',[Validators.required, Validators.maxLength(300)]],
       formDocumentOptions: ['',[Validators.required]],
       userId: [this.getUserInfo()?.id, [Validators.required]]    
     });
