@@ -60,7 +60,7 @@ export class RequestFormComponent implements OnInit {
       //this.form.addControl('email', new FormControl('', [Validators.required, Validators.email]));
     }
     this.getAllDocumentTypes();
-    this.getAllReceiveDocumentTypes();
+    //this.getAllReceiveDocumentTypes();
     this.getAllCourses();
   }
 
@@ -80,7 +80,7 @@ export class RequestFormComponent implements OnInit {
   public addFormValidation (): void{
     this.form = this.formBuilder.group({
       courseId: ['',[Validators.required]],
-      receiveDocumentTypeId: ['',[Validators.required]],
+      receiveDocumentTypeId: [0,[Validators.required]],//retirado por email
       documentTypeId: ['',[Validators.required]],
       status: ['Pendente'],
       note: ['',[Validators.required, Validators.maxLength(300)]],

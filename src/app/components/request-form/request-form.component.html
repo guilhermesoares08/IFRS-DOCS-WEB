@@ -12,7 +12,7 @@
         <app-form-group-errors [formGroup]="form"></app-form-group-errors>  
       </div>
       
-      <div *ngIf="!isUserLoggedIn()" class="form-row">
+      <!-- <div *ngIf="!isUserLoggedIn()" class="form-row">
         <div class="form-group col-sm-6">
           <label>E-mail</label>
           <input  type="text" class="form-control"
@@ -27,7 +27,7 @@
             Deve ser um endereço de e-mail válido
           </div>
         </div>
-      </div>
+      </div> -->
       <div class="form-row">
         <div class="form-group col-sm-6">
           <label>Curso</label>
@@ -46,7 +46,7 @@
           </div>
         </div>
 
-        <div class="form-group col-sm-6">
+        <!-- <div class="form-group col-sm-6">
             <label>Em qual formato você quer receber os documentos?</label>
             <select 
               [ngClass]="{'is-invalid': getFormControls.receiveDocumentTypeId.errors && getFormControls.receiveDocumentTypeId.touched}" 
@@ -61,10 +61,7 @@
             <div *ngIf="getFormControls.receiveDocumentTypeId.errors?.required && getFormControls.receiveDocumentTypeId.touched" class="invalid-feedback">
               Escolha pelo menos um formato
             </div>
-        </div>      
-      </div>
-
-      <div class="form-row">
+        </div>       -->
         <div class="form-group col-sm-6">
           <label>Qual tipo de documento você deseja solicitar?</label>
           <select
@@ -82,6 +79,10 @@
             Escolha pelo menos um tipo
           </div>
         </div>
+      </div>
+
+      <div class="form-row">
+       
 
         <div class="form-group col-sm-6">         
           <label>Quais documentos deseja?</label>          
