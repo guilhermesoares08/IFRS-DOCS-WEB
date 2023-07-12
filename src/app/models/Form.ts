@@ -1,6 +1,7 @@
 import { Course } from "./Course";
 import { FormDocumentOption } from "./FormDocumentOption";
 import { DocumentType } from "./DocumentType";
+import { FormStatus } from "./FormStatus.enum";
 import { User } from "./User";
 
 export class Form {
@@ -12,7 +13,7 @@ export class Form {
     courseId!: number;
     receiveDocumentType!: string;
     documentType!: DocumentType;
-    status!: string;
+    status!: FormStatus;
     createDate!: Date;
     updateDate!: Date;
     createBy!: string;
@@ -21,5 +22,6 @@ export class Form {
     user!: User;
     optionsString!: string;
     note!: string;
-    formDocumentOptions!: FormDocumentOption[];
-}
+    formDocumentOptions!: FormDocumentOption[];   
+   
+  }

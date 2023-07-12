@@ -5,20 +5,20 @@ import { catchError, map } from 'rxjs/operators';
 import { Constants } from '../util/constants';
 import { Observable, throwError } from 'rxjs';
 import { UserLogin } from '../models/UserLogin';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  baseURL = 'https://ifrs-docs-api.azurewebsites.net/api/authentication/';
-  
+    
   jwtHelper = new JwtHelperService();
   decodedToken: any;
 
   constructor(private httpClient: HttpClient) { }
 
   login(model: any): Observable<any> {
-    return this.httpClient.post(`${this.baseURL}login`, model).pipe(
+    return this.httpClient.post(`${environment.apiEndpoint}/authentication/login`, model).pipe(
       map((response: any) => {
         const user = response;
         if (user) {
@@ -33,7 +33,7 @@ export class AuthService {
   }
 
   register(model: any) {
-    return this.httpClient.post(`${this.baseURL}register`, model);
+    return this.httpClient.post(`${environment.apiEndpoint}/authentication/register`, model);
   }
 
   isUserLoggedIn() {

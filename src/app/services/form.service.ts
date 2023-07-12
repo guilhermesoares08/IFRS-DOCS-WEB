@@ -8,6 +8,7 @@ import { environment } from 'src/environments/environment';
 import { Course } from '../models/Course';
 import { DocumentOption } from '../models/DocumentOption';
 import { RequestNewForm } from '../models/RequestNewForm';
+import { UpdateFormStatusDto } from '../models/UpdateFormStatusDto';
 
 @Injectable({
   providedIn: 'root'
@@ -54,5 +55,13 @@ constructor(private http: HttpClient) { }
 
   postForm(form: RequestNewForm) {
     return this.http.post(`${environment.apiEndpoint}/Form`, form);
+  }
+
+  getFormById(id: number): Observable<Form>{
+    return this.http.get<Form>(`${environment.apiEndpoint}/Form/${id}`);
+  }
+
+  updateFormStatus(updateFormStatusDto: UpdateFormStatusDto) {
+    return this.http.put(`${environment.apiEndpoint}/Form/UpdateStatus/${updateFormStatusDto.formId}`, updateFormStatusDto);
   }
 }
