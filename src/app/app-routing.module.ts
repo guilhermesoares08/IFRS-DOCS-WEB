@@ -20,15 +20,13 @@ const routes: Routes = [
   { 
     path: 'forms', component: FormsComponent,
     children:[
-      { path: 'detail/:id', component: FormDetailComponent },
-      { path: 'detail', component: FormDetailComponent },
       { path: 'list', component: FormListComponent, canActivate: [AuthGuard] }
     ]
   },
+  { path: 'forms/detail/:id', component: FormDetailComponent, canActivate: [AuthGuard] }, 
   { path: 'requestform', component: RequestFormComponent }, 
   { path: '', redirectTo: 'forms/list', pathMatch: 'full' },
   { path: '**',  redirectTo: 'forms/list', pathMatch: 'full' }
-  
 ];
 
 @NgModule({

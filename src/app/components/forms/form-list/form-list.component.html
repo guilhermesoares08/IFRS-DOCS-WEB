@@ -13,12 +13,7 @@
         />
       </div>
     </div>
-    <div>
-      <a class="d-flex btn btn-outline-primary" routerLink="/forms/detail">
-        <i class="fa fa-plus-circle my-1"></i>
-        <b class="ml-1 d-none d-sm-block">Novo</b>
-      </a>
-    </div>
+    
   </div>
 
   <!-- <h3>Filtro: {{ this.filterList }}</h3> -->
@@ -64,24 +59,12 @@
           </button>
         </td>
         <td>
-          <button
-            class="btn btn-secondary btn-sm mr-2"
-            tooltip="Detalhe"
-            (click)="formDetail(form.id)"
-          >
+          <button class="btn btn-secondary  d-inline-block mr-2" tooltip="Detalhe" (click)="formDetail(form.id)">
             <i class="fa fa-eye"></i>
           </button>
-          <button
-            class="btn btn-primary btn-sm mr-2"
-            (click)="openModalEditStatus(template, form)"
-            tooltip="Editar"
-          >
+          <button class="btn btn-primary  d-inline-block" (click)="openModalEditStatus(template, form)" tooltip="Editar">
             <i class="fa fa-edit"></i>
-          </button>
-
-          <button class="btn btn-sm btn-danger btn-lg" tooltip="Excluir">
-            <i class="fa fa-eraser"></i>
-          </button>
+          </button>         
         </td>
       </tr>
     </tbody>

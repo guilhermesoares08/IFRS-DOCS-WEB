@@ -6,4 +6,5 @@ export class FormDocumentOption {
     documentOptionId!: number;
     form!: Form;
     documentOption!: DocumentOption;
+    documentOptionDescription: string;
 }
