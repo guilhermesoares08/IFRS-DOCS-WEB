@@ -22,6 +22,6 @@ export class Form {
     user!: User;
     optionsString!: string;
     note!: string;
-    formDocumentOptions!: FormDocumentOption[];   
+    formDocumentOptions: FormDocumentOption[] = [];   
    
   }

@@ -3,92 +3,90 @@
   <div class="row">
     <div [ngClass]="'col-md-12'">
       <div class="card rounded shadow-sm">
-        <form [formGroup]="formGroup">
-          <div class="p-3">
-            <div class="form-row">
-              <div class="form-group col-md-12">
-                <label>Curso</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="Insira o Curso"
-                  [readonly]="isReadOnly"
-                  value="{{ currentForm?.course?.description }}"
-                />
-              </div>
-            </div>
-            <div class="form-row">
-              <div class="form-group col-md-8">
-                <label>Solicitante</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  formControlName="local"
-                  readonly="isReadOnly"
-                  placeholder=""
-                  value="{{ currentForm.name }}"
-                />
-              </div>
-              <div class="form-group col-md-4">
-                <label>Data Criação</label>
-                <input
-                  type="datetime"
-                  class="form-control"
-                  value="{{ currentForm.createDate | DateTimeFormatPipe }}"
-                  bsDatepicker
-                  formControlName="dataEvento"
-                  placeholder=""
-                  [readonly]="isReadOnly"
-                />
-              </div>
-            </div>
-            <div class="form-row">
-              <div class="form-group col-md-2">
-                <label>Status</label>
-                <button
-                  ngClass="form-control {{
-                    getStatusColor(currentForm.status)
-                  }}"
-                  disabled
-                >
-                  {{ listAllFormStatus[currentForm.status]?.label }}
-                </button>
-              </div>
-              <div class="form-group col-md-6">
-                <label>e-mail</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  formControlName="email"
-                  placeholder="e-mail"
-                  [readonly]="isReadOnly"
-                  [(ngModel)]="currentForm.email"
-                />
-              </div>
-              <div class="form-group col-md-4">
-                <label>Observação</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  formControlName="local"
-                  readonly="isReadOnly"
-                  placeholder=""
-                  value="{{ currentForm.note }}"
-                />
-              </div>
+        <div class="p-3">
+          <div class="form-row">
+            <div class="form-group col-md-12">
+              <label>Curso</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Insira o Curso"
+                [readonly]="isReadOnly"
+                value="{{ currentForm?.course?.description }}"
+              />
             </div>
           </div>
-        </form>
+          <div class="form-row">
+            <div class="form-group col-md-8">
+              <label>Solicitante</label>
+              <input
+                type="text"
+                class="form-control"
+                readonly="isReadOnly"
+                placeholder=""
+                value="{{ currentForm.name }}"
+              />
+            </div>
+            <div class="form-group col-md-4">
+              <label>Data Criação</label>
+              <input
+                type="datetime"
+                class="form-control"
+                value="{{ currentForm.createDate | DateTimeFormatPipe }}"
+                bsDatepicker
+                placeholder=""
+                [readonly]="isReadOnly"
+              />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-2">
+              <label>Status</label>
+              <button
+                ngClass="form-control {{ getStatusColor(currentForm.status) }}"
+                disabled
+              >
+                {{ listAllFormStatus[currentForm.status]?.label }}
+              </button>
+            </div>
+            <div class="form-group col-md-6">
+              <label>e-mail</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="e-mail"
+                [readonly]="isReadOnly"
+                value="{{ currentForm.email }}"
+              />
+            </div>
+            <div class="form-group col-md-4">
+              <label>Observação</label>
+              <input
+                type="text"
+                class="form-control"
+                readonly="isReadOnly"
+                placeholder=""
+                value="{{ currentForm.note }}"
+              />
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
   <br />
 </div>
 
-<div *ngIf="currentForm.formDocumentOptions && currentForm.formDocumentOptions.length" style="text-align: left" class="container">
+<div
+  *ngIf="
+    currentForm.formDocumentOptions && currentForm.formDocumentOptions.length
+  "
+  style="text-align: left"
+  class="container"
+>
   <app-titulo [titulo]="'Anexos'"></app-titulo>
 
-  <div  class="card rounded shadow-sm">
+  <div class="card rounded shadow-sm">
     <div class="p-3">
       <form [formGroup]="formGroupAttachments" class="p-1">
         <div
@@ -96,20 +94,32 @@
           class="form-row"
         >
           <label>{{ opt.documentOptionDescription }}</label>
-          <input type="file" #file (change)="onFileChange($event)" class="form-control" />
+          <input
+            type="file"
+            formControlName="{{ 'image' + opt.documentOptionId }}"
+            #file
+            (change)="onFileChange($event, 'image' + opt.documentOptionId)"
+            class="form-control"
+          />
         </div>
       </form>
     </div>
-      <div class="card-footer">
-        <div class="d-flex">
-          <button (click)="cancel()" class="btn btn-outline-secondary mr-auto border">
-            Cancelar Alteração
-          </button>
-          <button class="btn btn-success">
-            Enviar
-          </button>
-        </div>
+    <div class="card-footer">
+      <div class="d-flex">
+        <button
+          (click)="cancel()"
+          class="btn btn-outline-secondary mr-auto border"
+        >
+          Cancelar Alteração
+        </button>
+        <button
+          class="btn btn-success"
+          (click)="saveForm()"
+          [disabled]="!formGroupAttachments.valid"
+        >
+          Enviar
+        </button>
       </div>
     </div>
-  
+  </div>
 </div>

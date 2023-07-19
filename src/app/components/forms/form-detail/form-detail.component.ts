@@ -25,9 +25,11 @@ import { Course } from 'src/app/models/Course';
 export class FormDetailComponent implements OnInit {
   formId: number;
   currentForm: Form = new Form();
-  formGroup: FormGroup;
   formGroupAttachments: FormGroup;
-  files: File[];
+  selectedImages: { [key: string]: File } = {};
+  formData: FormData = new FormData();
+  formToSave = new UpdateFormStatusDto();
+
   public title = "Detalhe";
   public isReadOnly = true;
   public listAllFormStatus: { label: string; value: FormStatus }[] = [
@@ -42,54 +44,30 @@ export class FormDetailComponent implements OnInit {
     private formService: FormService,
     private modalService: BsModalService,
     private toastr: ToastrService,
-    private spinner: NgxSpinnerService,    
+    private spinner: NgxSpinnerService,
     private authService: AuthService,
     private fb: FormBuilder,
     private routerRedirect: Router,
   ) { }
 
   ngOnInit(): void {
-    this.formId = + this.router.snapshot.paramMap.get('id');    
-    this.getFormById(this.formId);
-    this.validation();
-  }
-
-  getFormById(id: number): void {
-    
-    this.formService.getFormById(id).subscribe(
-      (form: Form) => {
-        this.currentForm = Object.assign({}, form);
-        console.log(this.currentForm.formDocumentOptions);
-      },
-      (error) => {
-      }
-    );
+    this.formId = + this.router.snapshot.paramMap.get('id');
+    this.addFormValidation();
   }
 
   public cssValidator(campoForm: FormControl | AbstractControl): any {
     return { 'is-invalid': campoForm.errors && campoForm.touched };
-  }
+  } 
 
-  public validation(): void {
-    this.formGroup = this.fb.group({
-      tema: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(4),
-          Validators.maxLength(50),
-        ],
-      ],
-      local: ['', Validators.required],
-      dataEvento: ['', Validators.required],
-      qtdPessoas: ['', [Validators.required, Validators.max(120000)]],
-      telefone: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      imagemURL: [''],
-      lotes: this.fb.array([]),
-    });
-
+  public async addFormValidation() {
+    
+    await this.getFormById(this.formId);
     this.formGroupAttachments = this.fb.group({});
+    if (this.currentForm.formDocumentOptions && this.currentForm.formDocumentOptions.length > 0) {
+      this.currentForm.formDocumentOptions.forEach((fd) => {
+        this.formGroupAttachments.addControl('image' + fd.documentOptionId, new FormControl('', [Validators.required]));
+      });
+    }
   }
 
   public getStatusColor(status: any) {
@@ -100,10 +78,10 @@ export class FormDetailComponent implements OnInit {
         cl += ' btn-danger';
         break;
       case FormStatus.Atendida:
-        cl += ' btn-success'; 
+        cl += ' btn-success';
         break;
       case FormStatus.EmAndamento:
-        cl += ' btn-secondary'; 
+        cl += ' btn-secondary';
         break;
       case FormStatus.AguardandoRetirada:
         cl += ' btn-info';
@@ -115,19 +93,45 @@ export class FormDetailComponent implements OnInit {
     return cl += ' btn-sm';
   }
 
-  cancel(): void{
+  cancel(): void {
     this.routerRedirect.navigate([`forms/list`])
   }
 
-  onFileChange(ev: any): void {
-    const reader = new FileReader();
+  onFileChange(event: any, key: string): void {
+    const file: File = event.target.files[0];
+    this.selectedImages[key] = file;
 
-    reader.onload = (event: any) => //this.imagemURL = event.target.result;
+    console.log(this.selectedImages);
+  }
 
-    this.files = ev.target.files;
-    reader.readAsDataURL(this.files[0]);
+  saveForm(): void {
+    //adiciona os arquivos na lista do request
+    for (const key in this.selectedImages) {
+      if (this.selectedImages.hasOwnProperty(key)) {
+        this.formToSave.files.push(this.selectedImages[key]);
+      }
+    }
+    this.formToSave.formId = this.formId;
+    //alterar para Finalizado se enviar tudo
+    this.formToSave.status = this.currentForm.status;
+    this.formToSave.userId = this.authService.getUserInfo().id;
 
-    //this.uploadImagem();
+    this.formService.updateFormStatusAndSendFiles(this.formToSave).subscribe(
+      (responseForm: any) => {
+        this.toastr.success(`Status atualizado e anexos enviados! Id: ${responseForm.id}`);
+      }, (error) => {
+        this.toastr.error(`Erro ao enviar imagens status: ${error}`);
+      }
+    );
+  }
+
+  async getFormById(id: number): Promise<void> {
+    try {
+      const response = await this.formService.getFormById(id).toPromise();
+      this.currentForm = Object.assign({}, response);
+    } catch (error) {
+      this.toastr.error(`Erro ao carregar formulário: ${error}`);
+    }
   }
 
 }

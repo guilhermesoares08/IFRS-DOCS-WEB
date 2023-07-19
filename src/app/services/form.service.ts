@@ -64,4 +64,17 @@ constructor(private http: HttpClient) { }
   updateFormStatus(updateFormStatusDto: UpdateFormStatusDto) {
     return this.http.put(`${environment.apiEndpoint}/Form/UpdateStatus/${updateFormStatusDto.formId}`, updateFormStatusDto);
   }
+
+  updateFormStatusAndSendFiles(updateFormStatusDto: UpdateFormStatusDto) {
+
+    const formData = new FormData();
+    formData.append('formId', updateFormStatusDto.formId.toString());
+    formData.append('status', updateFormStatusDto.status.toString());
+    formData.append('userId', updateFormStatusDto.userId.toString());
+    updateFormStatusDto.files.forEach((file, index) => {
+      formData.append(`files[${index}]`, file);
+    });
+
+    return this.http.put(`${environment.apiEndpoint}/Form/UpdateStatusAndSendFiles/${updateFormStatusDto.formId}`, formData);
+  }
 }
