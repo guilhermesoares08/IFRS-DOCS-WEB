@@ -161,9 +161,8 @@ export class RequestFormComponent implements OnInit {
     this.newForm.formDocumentOptions = this.castArrayToFormDocumentOptions(this.getFormControls.formDocumentOptions.value);
 
     console.log(this.newForm);
-    this.formService.postForm(this.newForm).subscribe(
-      (responseForm: any) => {
-        
+    this.formService.postForm(this.newForm).then(
+      (responseForm: any) => {        
         this.toastr.success(`Inserido com Sucesso! Id: ${responseForm.id}`);
       }, (error) => {
         this.toastr.error(`Erro ao Inserir: ${error}`);

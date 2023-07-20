@@ -39,7 +39,7 @@
     </div>
     <tbody *ngIf="forms && forms.length">
       <tr *ngFor="let form of forms" style="cursor: pointer">
-        <td class="d-none d-md-table-cell">
+        <td class="d-none d-md-table-cell d-inline-block">
           {{ form.createDate | DateTimeFormatPipe }}
         </td>
         <td>{{ form.email }}</td>

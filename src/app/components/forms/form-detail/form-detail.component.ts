@@ -57,10 +57,10 @@ export class FormDetailComponent implements OnInit {
 
   public cssValidator(campoForm: FormControl | AbstractControl): any {
     return { 'is-invalid': campoForm.errors && campoForm.touched };
-  } 
+  }
 
   public async addFormValidation() {
-    
+
     await this.getFormById(this.formId);
     this.formGroupAttachments = this.fb.group({});
     if (this.currentForm.formDocumentOptions && this.currentForm.formDocumentOptions.length > 0) {
@@ -105,6 +105,7 @@ export class FormDetailComponent implements OnInit {
   }
 
   saveForm(): void {
+    this.spinner.show();
     //adiciona os arquivos na lista do request
     for (const key in this.selectedImages) {
       if (this.selectedImages.hasOwnProperty(key)) {
@@ -116,21 +117,26 @@ export class FormDetailComponent implements OnInit {
     this.formToSave.status = this.currentForm.status;
     this.formToSave.userId = this.authService.getUserInfo().id;
 
-    this.formService.updateFormStatusAndSendFiles(this.formToSave).subscribe(
+    this.formService.updateFormStatusAndSendFiles(this.formToSave).then(
       (responseForm: any) => {
+        this.spinner.hide();
         this.toastr.success(`Status atualizado e anexos enviados! Id: ${responseForm.id}`);
       }, (error) => {
+        this.spinner.hide();
         this.toastr.error(`Erro ao enviar imagens status: ${error}`);
       }
     );
   }
 
   async getFormById(id: number): Promise<void> {
+    this.spinner.show();
     try {
       const response = await this.formService.getFormById(id).toPromise();
       this.currentForm = Object.assign({}, response);
+      this.spinner.hide();
     } catch (error) {
       this.toastr.error(`Erro ao carregar formulário: ${error}`);
+      this.spinner.hide();
     }
   }
 

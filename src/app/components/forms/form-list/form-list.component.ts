@@ -224,14 +224,17 @@ export class FormListComponent implements OnInit {
       userId: this.getUserInfo().id,
       formId: formId
     });
-
-    console.log('updatando status...', obj);
-    this.formService.updateFormStatus(obj).subscribe(
+    this.isLoading = true;
+    this.spinner.show();
+    
+    this.formService.updateFormStatus(obj).then(
       (responseForm: any) => {
         this.getForms();
+        this.spinner.hide();
         this.modalRef?.hide();
         this.toastr.success(`Status atualizado! Id: ${responseForm.id}`);
       }, (error) => {
+        this.spinner.hide();
         this.toastr.error(`Erro ao atualizar status: ${error}`);
       }
     );
