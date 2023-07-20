@@ -44,24 +44,7 @@
           <div *ngIf="getFormControls.courseId.errors?.required && getFormControls.courseId.touched" class="invalid-feedback">
             Curso é obrigatório
           </div>
-        </div>
-
-        <!-- <div class="form-group col-sm-6">
-            <label>Em qual formato você quer receber os documentos?</label>
-            <select 
-              [ngClass]="{'is-invalid': getFormControls.receiveDocumentTypeId.errors && getFormControls.receiveDocumentTypeId.touched}" 
-              class="form-control" 
-              formControlName="receiveDocumentTypeId"
-            >
-              <option value=""> Selecione um formato</option>
-              <option  role="menuitem" *ngFor="let c of receiveDocumentTypes" [ngValue]="c.id">
-                <a class="dropdown-item">{{ c.description }}</a>
-              </option>
-            </select>
-            <div *ngIf="getFormControls.receiveDocumentTypeId.errors?.required && getFormControls.receiveDocumentTypeId.touched" class="invalid-feedback">
-              Escolha pelo menos um formato
-            </div>
-        </div>       -->
+        </div>        
         <div class="form-group col-sm-6">
           <label>Qual tipo de documento você deseja solicitar?</label>
           <select

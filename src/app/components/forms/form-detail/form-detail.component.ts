@@ -29,6 +29,7 @@ export class FormDetailComponent implements OnInit {
   selectedImages: { [key: string]: File } = {};
   formData: FormData = new FormData();
   formToSave = new UpdateFormStatusDto();
+  showAttachmentTab = true;
 
   public title = "Detalhe";
   public isReadOnly = true;
@@ -106,6 +107,7 @@ export class FormDetailComponent implements OnInit {
 
   saveForm(): void {
     this.spinner.show();
+    this.formToSave.files = [];
     //adiciona os arquivos na lista do request
     for (const key in this.selectedImages) {
       if (this.selectedImages.hasOwnProperty(key)) {
@@ -113,17 +115,18 @@ export class FormDetailComponent implements OnInit {
       }
     }
     this.formToSave.formId = this.formId;
-    //alterar para Finalizado se enviar tudo
-    this.formToSave.status = this.currentForm.status;
+    this.formToSave.status = FormStatus.Atendida;
     this.formToSave.userId = this.authService.getUserInfo().id;
 
     this.formService.updateFormStatusAndSendFiles(this.formToSave).then(
       (responseForm: any) => {
         this.spinner.hide();
+        this.getFormById(this.formId);
+        this.showAttachmentTab = false;
         this.toastr.success(`Status atualizado e anexos enviados! Id: ${responseForm.id}`);
       }, (error) => {
         this.spinner.hide();
-        this.toastr.error(`Erro ao enviar imagens status: ${error}`);
+        this.toastr.error(`Erro ao enviar anexos: ${error}`);
       }
     );
   }
@@ -138,6 +141,13 @@ export class FormDetailComponent implements OnInit {
       this.toastr.error(`Erro ao carregar formulário: ${error}`);
       this.spinner.hide();
     }
+  }
+
+  visibleAttachmentsTab(): boolean{
+    return (this.currentForm.status != FormStatus.Atendida 
+            && this.currentForm.status !=  FormStatus.AguardandoRetirada
+            && this.currentForm.status !=  FormStatus.Cancelada)
+          && (this.currentForm.formDocumentOptions && this.currentForm.formDocumentOptions.length > 0)
   }
 
 }

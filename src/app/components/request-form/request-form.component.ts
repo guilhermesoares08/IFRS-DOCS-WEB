@@ -149,7 +149,8 @@ export class RequestFormComponent implements OnInit {
   }
 
   get isDevelopment(): boolean{
-    return !environment.production
+    return false;
+    //return !environment.production
   }
 
   resetForm(): void{
@@ -164,6 +165,7 @@ export class RequestFormComponent implements OnInit {
     this.formService.postForm(this.newForm).then(
       (responseForm: any) => {        
         this.toastr.success(`Inserido com Sucesso! Id: ${responseForm.id}`);
+        this.router.navigate(['/forms/list']);
       }, (error) => {
         this.toastr.error(`Erro ao Inserir: ${error}`);
       }

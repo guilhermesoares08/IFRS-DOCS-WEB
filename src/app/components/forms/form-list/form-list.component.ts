@@ -74,7 +74,7 @@ export class FormListComponent implements OnInit {
           this.isLoading = false;
         },
         (error: any) => {
-          this.toastr.error('Erro ao Carregar os Forms', error.message);
+          this.toastr.error('Erro ao Carregar os Forms', error.error);
           this.isLoading = false;
         }
       )
@@ -128,10 +128,11 @@ export class FormListComponent implements OnInit {
       this.termoBuscaChanged
         .pipe(debounceTime(1000))
         .subscribe((filtrarPor) => {
+          this.spinner.show();
           this.formService
             .getForms(
-              this.pagination.currentPage,
-              this.pagination.itemsPerPage,
+              this.pagination?.currentPage,
+              this.pagination?.itemsPerPage,
               filtrarPor
             )
             .subscribe(
@@ -141,7 +142,7 @@ export class FormListComponent implements OnInit {
               },
               (error: any) => {
                 this.spinner.hide();
-                this.toastr.error('Erro ao Carregar os Formulários', 'Erro!');
+                this.toastr.error('Erro ao Carregar os Formulários', error.error);
               }
             )
             .add(() => this.spinner.hide());
@@ -233,9 +234,9 @@ export class FormListComponent implements OnInit {
         this.spinner.hide();
         this.modalRef?.hide();
         this.toastr.success(`Status atualizado! Id: ${responseForm.id}`);
-      }, (error) => {
+      }, (error: any) => {
         this.spinner.hide();
-        this.toastr.error(`Erro ao atualizar status: ${error}`);
+        this.toastr.error(`Erro ao atualizar status: ${error.error}`);
       }
     );
   }

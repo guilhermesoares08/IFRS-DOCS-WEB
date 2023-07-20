@@ -30,7 +30,7 @@ export class FormService {
     }
 
     if (term != null && term != '')
-      params = params.append('term', term)
+      params = params.append('name', term)
 
     return this.http
       .get<Form[]>(`${environment.apiEndpoint}/form`, { observe: 'response', params })

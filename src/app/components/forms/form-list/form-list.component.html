@@ -77,10 +77,11 @@
   </table>
 
   <div class="d-flex justify-content-center">
+    <ng-container *ngIf="pagination">
     <pagination
       [boundaryLinks]="true"
-      [totalItems]="pagination.totalItems"
-      [itemsPerPage]="pagination.itemsPerPage"
+      [totalItems]="pagination?.totalItems"
+      [itemsPerPage]="pagination?.itemsPerPage"
       [(ngModel)]="pagination.currentPage"
       (pageChanged)="pageChanged($event)"
       pageBtnClass="btn"
@@ -90,6 +91,7 @@
       lastText="&raquo;"
     >
     </pagination>
+  </ng-container>
   </div>
 </div>
 

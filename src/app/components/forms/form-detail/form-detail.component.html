@@ -73,15 +73,23 @@
           </div>
         </div>
       </div>
+      <div *ngIf="!visibleAttachmentsTab()" class="card-footer">
+        <div class="d-flex">
+          <button
+            (click)="cancel()"
+            class="btn btn-outline-secondary mr-auto border"
+          >
+            Voltar
+          </button>
+        </div>
+      </div>
     </div>
   </div>
   <br />
 </div>
 
 <div
-  *ngIf="
-    currentForm.formDocumentOptions && currentForm.formDocumentOptions.length
-  "
+  *ngIf="visibleAttachmentsTab()"
   style="text-align: left"
   class="container"
 >
