@@ -95,6 +95,7 @@
             formControlName="note"
             placeholder=""
             [ngClass]="{'is-invalid': getFormControls.note.errors && getFormControls.note.touched}"
+            style="width: 100%; height: 35px; padding: 8px; font-size: 14px;"
           ></textarea>          
           <div *ngIf="validateNote()" class="invalid-feedback">
             A justificativa é obrigatória
